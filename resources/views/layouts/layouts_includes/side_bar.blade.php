@@ -33,13 +33,17 @@
                     </ul>
                 </li>
                 @if(Auth::user()->roles->pluck('name')[0] == 'Admin')
-                <li class="{{setActive(['users'])}}">
+                <li class="{{setActive(['users' ,'roles.index'])}} ">
                     <a href="#People" class="has-arrow"><i class="fa fa-user"></i><span>People</span></a>
                     <ul>
                         <li class="{{setActive(['users'])}}"><a href="{{route('users')}}">Users</a></li>
                     </ul>
+                    <ul>
+                        <li class="{{setActive(['roles.index'])}}"><a href="{{route('roles.index')}}">Roles & Permissions</a></li>
+                    </ul>
                 </li>
                 @endif
+
             </ul>
         </nav>
     </div>
