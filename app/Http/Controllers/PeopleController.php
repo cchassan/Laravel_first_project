@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use http\Url;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use DB;
 
 class PeopleController extends Controller
 {
-    public function __construct()
+    function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:user-create', ['only' => ['create','store']]);
+        $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
     }
-
     public function index()
     {
         $users = User::all();
@@ -25,7 +28,8 @@ class PeopleController extends Controller
         $url = route('users.store');
         $title = "Create User";
         $user = new User;
-        $data = compact('url' ,'title' , 'user');
+        $roles = Role::pluck('name','name')->all();
+        $data = compact('url' ,'title' , 'user','roles');
         return view('addUser') ->with($data);
     }
 
@@ -36,6 +40,7 @@ class PeopleController extends Controller
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required', 'string', 'min:8',],
+                'roles' => 'required'
             ]
         );
         $user = new User;
@@ -44,6 +49,7 @@ class PeopleController extends Controller
         $user->phone = $request->phone;
         $user->password = Hash::make($request->password);
         $user->address = $request->address;
+        $user->assignRole($request->input('roles'));
         $user->save();
         return redirect()->route('users');
     }
@@ -58,7 +64,9 @@ class PeopleController extends Controller
 //            $url = url('/users/update/') ."/".$id;
             $url = route('users.update',$id) ;
             $title = "Edit User";
-            $data = compact('user', 'url', 'title');
+            $roles = Role::pluck('name','name')->all();
+            $userRole = $user->roles->pluck('name','name')->all();
+            $data = compact('user', 'url', 'title', 'roles', 'userRole');
             return view('addUser') ->with($data);
         }
     }
@@ -71,6 +79,7 @@ class PeopleController extends Controller
 //                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'email' => 'required|email|max:255|unique:users,email,' . $user->id,
                is_null($request->password) ? : 'password' => ['string', 'min:8',],
+                'roles' => 'required'
             ]
         );
 
@@ -81,6 +90,8 @@ class PeopleController extends Controller
 //        $user->password = is_null($request->password) ? $user->password : Hash::make($request->password);
         $user->address = $request->address;
         $user->update();
+        DB::table('model_has_roles')->where('model_id',$id)->delete();
+        $user->assignRole($request->input('roles'));
         return redirect()->route('users');
 
     }

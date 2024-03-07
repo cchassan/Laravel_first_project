@@ -71,6 +71,16 @@
                                 <textarea class="form-control" name="address" id="address" rows="4"
                                 >{{old('address', $user->address)}}</textarea>
                             </div>
+                            <div class="col-md-12 mt-1">
+                                <div class="form-group">
+                                    <strong>Role:</strong>
+                                    @if(request()->is('users/create'))
+                                        {!! Form::select('roles[]', $roles,[], array('class' => 'form-control','multiple')) !!}
+                                    @else
+                                        {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                         <hr>
                         <div class="text-right">
