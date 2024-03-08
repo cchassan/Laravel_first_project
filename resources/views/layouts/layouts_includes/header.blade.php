@@ -42,7 +42,7 @@
 <div class="overlay"></div>
 
 <div id="wrapper">
-    @if(!request()->is('login')  && !request()->is('password/reset'))
+    @if(!request()->is('login')  && !request()->is('password/reset*') )
     @include('layouts/layouts_includes/tob_bar')
 
     @include('layouts/layouts_includes/right_bar')
