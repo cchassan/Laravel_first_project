@@ -1,6 +1,34 @@
 @extends('layouts.app')
 
 @section('content')
+    <style>
+        .theme-green .auth-main:after,
+        .theme-green .auth-main:before {
+            background: none;
+            background-image: url("public/assets/images/image-gallery/Gulf-Biotech-Image.jpg") !important;
+            background-size: cover;
+            background-position: center;
+        }
+        .card .header {
+            padding: 8px;
+        }
+        .card .body {
+            padding-top: 8px;
+        }
+        .footer {
+            background-color: rgb(255, 255, 255);
+            color: #333;
+            padding: 10px 0;
+            text-align: center;
+            vertical-align: middle;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            z-index: 1000;
+            opacity: 0.8;
+        }
+    </style>
 {{--<div class="container">--}}
 {{--    <div class="row justify-content-center">--}}
 {{--        <div class="col-md-8">--}}
@@ -77,36 +105,12 @@
 <div id="wrapper" class="auth-main">
     <div class="container">
         <div class="row clearfix">
-            <div class="col-12">
-                <nav class="navbar navbar-expand-lg">
-                    <a class="navbar-brand" href="javascript:void(0);"><img src="../assets/images/image-gallery/GulfConnect-Pro-Logo.png" width="300" class="d-inline-block align-top mr-2" alt=""></a>
-{{--                    <ul class="navbar-nav">--}}
-{{--                        <li class="nav-item"><a class="nav-link" href="{{route('register')}}">Sign Up</a></li>--}}
-{{--                    </ul>--}}
-                </nav>
-            </div>
-            <div class="col-lg-8">
-                <div class="auth_detail">
-                    <h2 class="text-monospace">
-                         Gulf Connect PRO portal for
-                        <div id="carouselExampleControls" class="carousel vert slide" data-ride="carousel" data-interval="1500">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">Warehouse</div>
-                                <div class="carousel-item">Production</div>
-                            </div>
-                        </div>
-                    </h2>
-                    <p>Pharmaceutical company in Al Hidd, Bahrain.</p>
-                    <ul class="social-links list-unstyled">
-                        <li><a class="btn btn-default" href="https://www.facebook.com/GBC115/" data-toggle="tooltip" data-placement="top" title="facebook"><i class="fa fa-facebook"></i></a></li>
-                        <li><a class="btn btn-default" href="https://www.linkedin.com/company/gulf-biotech/" data-toggle="tooltip" data-placement="top" title="linkedin"><i class="fa fa-linkedin"></i></a></li>
-                    </ul>
-                </div>
-            </div>
+            <div class="col-lg-4"></div>
             <div class="col-lg-4">
                 <div class="card">
                     <div class="header text-center">
-                        <img src="../assets/images/image-gallery/GBC-Logo.png" width="120px" height="120px" alt=""><br><br>
+                        <div><img src="../assets/images/image-gallery/GBC-Logo.png" width="120px" height="120px" alt=""></div>
+                        <br>
                         <img src="../assets/images/image-gallery/GulfConnect-Pro-Logo.png" width="200px" height="50px"  alt="">
                     </div>
                     <div class="body">
@@ -130,12 +134,12 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="form-group clearfix">
-                                <label class="fancy-checkbox element-left">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                    <span>Remember me</span>
-                                </label>
-                            </div>
+{{--                            <div class="form-group clearfix">--}}
+{{--                                <label class="fancy-checkbox element-left">--}}
+{{--                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>--}}
+{{--                                    <span>Remember me</span>--}}
+{{--                                </label>--}}
+{{--                            </div>--}}
                             <button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>
                             <div class="bottom">
                                 @if (Route::has('password.request'))
@@ -148,7 +152,11 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-4"></div>
         </div>
     </div>
 </div>
+    <footer class="footer text-center">
+        &copy; Copyright @ 2024 Gulf Biotech | IT Department | <span style="color: #698F2D">Gulf Biotech Website | Support</span>
+    </footer>
 @endsection
