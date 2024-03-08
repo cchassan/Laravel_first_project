@@ -74,7 +74,6 @@
                 }else if(type == 'method'){
                     document.getElementById('olo-'+recordId).submit();
                 }
-
             } else {
                 swal("Cancelled", "Your imaginary file is safe :)", "error");
             }

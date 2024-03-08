@@ -75,9 +75,9 @@
                                 <div class="form-group">
                                     <strong>Role:</strong>
                                     @if(request()->is('users/create'))
-                                        {!! Form::select('roles[]', $roles,[], array('class' => 'form-control','multiple')) !!}
+                                        {!! Form::select('roles[]', $roles,[], array('class' => 'form-control')) !!}
                                     @else
-                                        {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}
+                                        {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control',)) !!}
                                     @endif
                                 </div>
                             </div>
