@@ -26,10 +26,10 @@
                 <li class="{{setActive(['material.form.1'])}}">
                     <a href="#WarehouseForm" class="has-arrow"><i class="icon-equalizer"></i><span>Warehouse Form</span></a>
                     <ul>
-                        <li class="{{setActive(['material.form.1'])}}"><a href="{{route('material.form.1')}}">Material Entry Form</a></li>
-                        <li><a href="#">New Form</a></li>
-                        <li><a href="#">Blog List</a></li>
-                        <li><a href="#">Blog Detail</a></li>
+                        <li class="{{setActive(['material.form.1'])}}"><a href="{{route('material.form.1')}}">Material Entry Record</a></li>
+                        <li><a href="#">Material Receiving Form</a></li>
+                        <li><a href="#">Goods Receiving Form</a></li>
+                        <li><a href="#">Bin Card</a></li>
                     </ul>
                 </li>
                 @if(Auth::user()->roles->pluck('name')[0] == 'Admin')

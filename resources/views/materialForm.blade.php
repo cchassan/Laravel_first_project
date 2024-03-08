@@ -7,12 +7,12 @@
         <div class="block-header">
             <div class="row clearfix">
                 <div class="col-md-6 col-sm-12">
-                    <h2>Material Form 1</h2>
+                    <h2>Material Entry Record</h2>
                 </div>
                 <div class="col-md-6 col-sm-12 text-right">
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="icon-home"></i></a></li>
-                        <li class="breadcrumb-item active"><a href="{{route('material.form.1')}}">MaterialForm 1</a></li>
+                        <li class="breadcrumb-item active">Material Entry Record</li>
                     </ul>
                 </div>
             </div>
@@ -23,7 +23,7 @@
 
                     <div class="card planned_task">
                         <div class="header">
-                            <h2>Material Entry Record</h2>
+                            <h1 class="text-center">Material Entry Record</h1>
                             <ul class="header-dropdown dropdown dropdown-animated scale-left">
                                 <li><a href="javascript:void(0);" class="full-screen"><i
                                             class="icon-size-fullscreen"></i></a></li>
@@ -89,11 +89,11 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-6">
+                                <div class="row text-right">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-primary" style="background: #0b2e13; border: none">
-                                                Add
+                                                submit
                                             </button>
                                         </div>
                                     </div>
