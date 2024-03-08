@@ -112,8 +112,8 @@
                                             <form class="inlineblock"  id="olo-{{$role->id}}" action="{{route('roles.destroy', [$role->id])}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="button" class="dropdown-item btn btn-sm" onclick="confirmDelete('method','{{$role->id}}', 'null' )" title="Delete">
-                                                    <i class="dripicons-trash pe-1"></i> Delete
+                                                <button type="button" class="btn btn-danger  btn btn-sm" onclick="confirmDelete('method','{{$role->id}}', 'null' )" title="Delete">
+                                                    <i class="fa fa-times"></i>
                                                 </button>
                                             </form>
                                         </td>

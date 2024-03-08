@@ -35,4 +35,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/users/edit/{id}', [PeopleController::class, 'edit'])->name('users.edit');
     Route::post('/users/update/{id}', [PeopleController::class, 'update'])->name('users.update');
     Route::get('/users/delete/{id}', [PeopleController::class, 'delete'])->name('users.delete');
+    Route::get('/profile', function () {
+        return view('profile/profile');
+    });
 });
