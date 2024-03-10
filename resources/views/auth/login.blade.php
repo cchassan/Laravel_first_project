@@ -5,7 +5,7 @@
         .theme-green .auth-main:after,
         .theme-green .auth-main:before {
             background: none;
-            background-image: url("public/assets/images/image-gallery/Gulf-Biotech-Image.jpg") !important;
+            background-image: url('{{asset('assets/images/image-gallery/Gulf-Biotech-Image.jpg')}}') !important;
             background-size: cover;
             background-position: center;
         }
@@ -109,9 +109,9 @@
             <div class="col-lg-4">
                 <div class="card">
                     <div class="header text-center">
-                        <div><img src="../assets/images/image-gallery/GBC-Logo.png" width="120px" height="120px" alt=""></div>
+                        <div><img src="{{asset('assets/images/image-gallery/GBC-Logo.png')}}" width="120px" height="120px" alt=""></div>
                         <br>
-                        <img src="../assets/images/image-gallery/GulfConnect-Pro-Logo.png" width="200px" height="50px"  alt="">
+                        <img src="{{asset('assets/images/image-gallery/GulfConnect-Pro-Logo.png')}}" width="200px" height="50px"  alt="">
                     </div>
                     <div class="body">
                         <form class="form-auth-small" method="POST" action="{{ route('login') }}">
