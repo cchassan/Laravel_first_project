@@ -7,6 +7,7 @@ use App\Http\Controllers\MaterialFormController;
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProfileController;
+use \App\Http\Controllers\MaterialReceivingFormController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +41,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/profile/update/{id}', [ProfileController::class, 'updateProfile']) -> name('profile.update');
     Route::post('/profile/updatePassword/{id}', [ProfileController::class, 'updatePassword']) -> name('profile.updatePassword');
     Route::get('/materialEntryRecord', [MaterialFormController::class, 'index'])->name('material.Entry.Record');
+    Route::get('/materialReceivingForm', [MaterialReceivingFormController::class, 'index'])->name('material.Receiving.Form');
 });

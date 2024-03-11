@@ -21,11 +21,11 @@
         <nav id="left-sidebar-nav" class="sidebar-nav">
             <ul id="main-menu" class="metismenu">
                 <li class="{{setActive(['home'])}}"><a href="{{route('home')}}"><i class="icon-home"></i><span>Dashboard</span></a></li>
-                <li class="{{setActive(['material.Entry.Record'])}}">
+                <li class="{{setActive(['material.Entry.Record', 'material.Receiving.Form'])}}">
                     <a href="#WarehouseForm" class="has-arrow"><i class="icon-equalizer"></i><span>Warehouse Form</span></a>
                     <ul>
                         <li class="{{setActive(['material.Entry.Record'])}}"><a href="{{route('material.Entry.Record')}}">Material Entry Record</a></li>
-                        <li><a href="#">Material Receiving Form</a></li>
+                        <li class="{{setActive(['material.Receiving.Form'])}}"><a href="{{route('material.Receiving.Form')}}">Material Receiving Form</a></li>
                         <li><a href="#">Goods Receiving Form</a></li>
                         <li><a href="#">Bin Card</a></li>
                     </ul>
