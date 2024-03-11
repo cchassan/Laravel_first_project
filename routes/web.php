@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MaterialFormController;
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +36,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/users/edit/{id}', [PeopleController::class, 'edit'])->name('users.edit');
     Route::post('/users/update/{id}', [PeopleController::class, 'update'])->name('users.update');
     Route::get('/users/delete/{id}', [PeopleController::class, 'delete'])->name('users.delete');
-    Route::get('/profile', function () {
-        return view('profile/profile');
-    });
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::post('/profile/update/{id}', [ProfileController::class, 'updateProfile']) -> name('profile.update');
+    Route::post('/profile/updatePassword/{id}', [ProfileController::class, 'updatePassword']) -> name('profile.updatePassword');
 });

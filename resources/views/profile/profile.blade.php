@@ -9,7 +9,8 @@
                 </div>
                 <div class="col-md-6 col-sm-12 text-right">
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href=""><i class="icon-home"></i></a></li>
+                        <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="icon-home"></i></a></li>
+                        <li class="breadcrumb-item">Profile</li>
                     </ul>
                 </div>
             </div>
@@ -34,8 +35,6 @@
                         <div class="header">
                             <h2>Information</h2>
                             <ul class="header-dropdown dropdown dropdown-animated scale-left">
-                                <li><a href="javascript:void(0);" data-toggle="cardloading"
-                                       data-loading-effect="pulse"><i class="icon-refresh"></i></a></li>
                                 <li><a href="javascript:void(0);" class="full-screen"><i
                                             class="icon-size-fullscreen"></i></a></li>
                             </ul>
@@ -73,38 +72,40 @@
                                         General Information
                                     </h2>
                                     <ul class="header-dropdown dropdown dropdown-animated scale-left">
-                                        <li><a href="javascript:void(0);" data-toggle="cardloading"
-                                               data-loading-effect="pulse"><i class="icon-refresh"></i></a></li>
                                         <li><a href="javascript:void(0);" class="full-screen"><i
                                                     class="icon-size-fullscreen"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="body">
-                                    <form method="POST" action="" enctype="multipart/form-data">
+                                    <form method="POST" action="{{route('profile.update', ['id' => Auth::user()->id])}}" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row">
                                             <div class="col-lg-6 col-md-12">
                                                 <div class="form-group">
-                                                    <label>Name:</label>
-                                                    <input type="text" name="first_name"
+                                                    <label for="name" >User Name <span class="text-danger">*</span></label>
+                                                    <input type="text" name="name"
                                                            value="{{Auth::user()->name}}" class="form-control"
-                                                           placeholder="Nome di battesimo
-">
+                                                           placeholder="Nome di battesimo">
+                                                    @error('name')
+                                                        <span class="text-danger">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-12">
                                                 <div class="form-group">
-                                                    <label>Email:</label>
+                                                    <label for="email" >Email</label>
                                                     <input type="text" name="email"
                                                            value="{{Auth::user()->email}}" class="form-control"
-                                                           placeholder="Email" disabled>
+                                                           placeholder="Email" readonly>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group">
-                                                    <label>Contact No.:</label>
+                                                    <label for="phone" >Contact No.</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                                 <span class="input-group-text"><i
@@ -112,8 +113,13 @@
                                                         </div>
                                                         <input type="text" name="phone"
                                                                value="{{Auth::user()->phone ?? ''}}" class="form-control"
-                                                               placeholder="030234343434">
+                                                               placeholder="03023434343">
                                                     </div>
+                                                    @error('phone')
+                                                    <span class="text-danger">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -129,6 +135,11 @@
                                                         <textarea class="form-control" name="address" id="address" rows="4"
                                                         >{{old('address', Auth::user()->address)}}</textarea>
                                                     </div>
+                                                    @error('address')
+                                                    <span class="text-danger">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -142,7 +153,7 @@
 {{--                                            </div>--}}
 {{--                                        </div>--}}
                                         <div class="text-right">
-                                            <button type="submit" class="btn btn-primary" style="background: #446433; border: #0b2e13"> Update</button>
+                                            <button type="submit" class="btn btn-primary" style="background: #446433; border: #0b2e13">Update</button>
                                         </div>
                                     </form>
                                 </div>
@@ -151,37 +162,49 @@
                         <div class="tab-pane" id="password">
                             <div class="card">
                                 <div class="header bline">
-                                    <h2>Cambia password</h2>
+                                    <h2>Update password</h2>
                                     <ul class="header-dropdown dropdown dropdown-animated scale-left">
-                                        <li><a href="javascript:void(0);" data-toggle="cardloading"
-                                               data-loading-effect="pulse"><i class="icon-refresh"></i></a></li>
                                         <li><a href="javascript:void(0);" class="full-screen"><i
                                                     class="icon-size-fullscreen"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="body">
-                                    <form method="POST" action="">
+                                    <form method="POST" action="{{route('profile.updatePassword', ['id' => Auth::user()->id])}}">
                                         @csrf
                                         <div class="row clearfix">
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group">
                                                     <input type="password" name="oldPassword" class="form-control"
-                                                           placeholder="password attuale">
-
+                                                           placeholder="Current password">
+                                                    @error('oldPassword')
+                                                    <span class="text-danger">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                                 <div class="form-group">
                                                     <input type="password" name="newPassword" class="form-control"
-                                                           placeholder="nuova password">
-
+                                                           placeholder="New password">
+                                                    @error('newPassword')
+                                                    <span class="text-danger">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="password" name="conformPassword"
-                                                           class="form-control" placeholder="Conferma la nuova password">
-
+                                                    <input type="password" name="password_confirmation"
+                                                           class="form-control" placeholder="Confirm password">
+                                                    @error('password_confirmation')
+                                                    <span class="text-danger">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-round">Aggiornamento</button>
+                                        <div class="text-right">
+                                        <button type="submit" class="btn btn-primary " style="background: #446433; border: #0b2e13">Update</button>
+                                        </div>
                                         &nbsp;&nbsp;
                                     </form>
                                 </div>

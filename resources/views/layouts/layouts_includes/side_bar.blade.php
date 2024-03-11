@@ -12,9 +12,9 @@
                 <span>Welcome,</span>
                 <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>{{Auth::user()->name}}</strong></a>
                 <ul class="dropdown-menu dropdown-menu-right account">
-                    <li><a href="page-profile.html"><i class="icon-user"></i>My Profile</a></li>
+                    <li><a href="{{route('profile')}}"><i class="icon-user"></i>My Profile</a></li>
                     <li class="divider"></li>
-                    <li><a href="page-login.html"><i class="icon-power"></i>Logout</a></li>
+                    <li><a href="{{route('logout')}}"><i class="icon-power"></i>Logout</a></li>
                 </ul>
             </div>
         </div>

@@ -7,7 +7,7 @@
                     <a href="#"><img src="{{asset('assets/images/icon-light.svg')}}" alt="HexaBit Logo" class="img-fluid logo"></a>
                     <button type="button" class="btn-toggle-offcanvas"><i class="lnr lnr-menu fa fa-bars"></i></button>
                 </div>
-            <a href="javascript:void(0);" class="icon-menu btn-toggle-fullwidth"><i class="fa fa-Bars"></i></a>
+            <a href="javascript:void(0);" class="icon-menu btn-toggle-fullwidth"><i class="fa fa-bars"></i></a>
         </div>
 
         <div class="navbar-right">

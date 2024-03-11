@@ -26,7 +26,7 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index(Request $request)
     {
@@ -50,7 +50,7 @@ class RoleController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -62,15 +62,19 @@ class RoleController extends Controller
 
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
+        $message = array(
+            'message' => "Role created successfully",
+            'type'=> "success",
+        );
 
         return redirect()->route('roles.index')
-            ->with('success','Role created successfully');
+            ->with($message);
     }
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -86,7 +90,7 @@ class RoleController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit($id)
     {
@@ -118,9 +122,14 @@ class RoleController extends Controller
         $role->save();
 
         $role->syncPermissions($request->input('permission'));
+        $message = array(
+            'message' => "Role updated successfully",
+            'type'=> "success",
+        );
 
         return redirect()->route('roles.index')
-            ->with('success','Role updated successfully');
+            ->with($message);
+
     }
     /**
      * Remove the specified resource from storage.
@@ -131,6 +140,11 @@ class RoleController extends Controller
     public function destroy($id)
     {
         DB::table("roles")->where('id',$id)->delete();
-        return redirect()->route('roles.index');
+        $message = array(
+            'message' => "Role delete successfully",
+            'type'=> "success",
+        );
+
+        return redirect()->route('roles.index')->with($message);
     }
 }

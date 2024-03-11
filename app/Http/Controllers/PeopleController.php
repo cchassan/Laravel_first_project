@@ -51,7 +51,11 @@ class PeopleController extends Controller
         $user->address = $request->address;
         $user->assignRole($request->input('roles'));
         $user->save();
-        return redirect()->route('users');
+        $message = array(
+            'message' => "User Added Successfully.",
+            'type'=> "success",
+        );
+        return redirect()->route('users')->with($message);
     }
 
 
@@ -92,7 +96,11 @@ class PeopleController extends Controller
         $user->update();
         DB::table('model_has_roles')->where('model_id',$id)->delete();
         $user->assignRole($request->input('roles'));
-        return redirect()->route('users');
+        $message = array(
+            'message' => "User Update Successfully.",
+            'type'=> "success",
+        );
+        return redirect()->route('users')->with($message);
 
     }
 
@@ -102,6 +110,10 @@ class PeopleController extends Controller
         if(!is_null($user)) {
             $user->delete();
         }
-        return redirect()->route('users');
+        $message = array(
+            'message' => "User Delete Successfully.",
+            'type'=> "success",
+        );
+        return redirect()->route('users') -> with($message);
     }
 }
