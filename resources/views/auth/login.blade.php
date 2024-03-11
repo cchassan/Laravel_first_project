@@ -15,6 +15,9 @@
         .card .body {
             padding-top: 8px;
         }
+        .card {
+            opacity: 0.8;
+        }
         .footer {
             background-color: rgb(255, 255, 255);
             color: #333;
