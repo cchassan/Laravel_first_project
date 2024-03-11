@@ -110,7 +110,7 @@
         <div class="row clearfix">
             <div class="col-lg-4"></div>
             <div class="col-lg-4">
-                <div class="card">
+                <div class="card shadow-lg">
                     <div class="header text-center">
                         <div><img src="{{asset('assets/images/image-gallery/GBC-Logo.png')}}" width="120px" height="120px" alt=""></div>
                         <br>
