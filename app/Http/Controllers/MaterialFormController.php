@@ -8,6 +8,6 @@ class MaterialFormController extends Controller
 {
     public function index()
     {
-        return view('materialForms/materialForm');
+        return view('materialForms/materialEntryRecordForm');
     }
 }
