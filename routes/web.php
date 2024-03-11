@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MaterialFormController;
@@ -24,12 +25,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/materialForm1', [MaterialFormController::class, 'index'])->name('material.form.1');
+
 
 Route::group(['middleware' => ['auth']], function() {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::resource('roles', RoleController::class);
-    Route::resource('products', ProductController::class);
     Route::get('/users', [PeopleController::class, 'index'])->name('users');
     Route::get('/users/create', [PeopleController::class, 'create'])->name('users.create');
     Route::post('/users/create', [PeopleController::class, 'store'])->name('users.store');
@@ -39,4 +39,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('/profile/update/{id}', [ProfileController::class, 'updateProfile']) -> name('profile.update');
     Route::post('/profile/updatePassword/{id}', [ProfileController::class, 'updatePassword']) -> name('profile.updatePassword');
+    Route::get('/materialEntryRecord', [MaterialFormController::class, 'index'])->name('material.Entry.Record');
 });

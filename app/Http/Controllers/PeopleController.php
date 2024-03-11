@@ -61,7 +61,7 @@ class PeopleController extends Controller
 
     public function edit($id)
     {
-        $user = User::find($id);
+        $user = User::find(base64_decode($id));
         if(is_null($user)){
             return redirect()->route('users');
         }else {

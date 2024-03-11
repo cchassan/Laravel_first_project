@@ -60,7 +60,7 @@
                                         <td>{{$user->email}}</td>
                                         <td>@if($user->phone == null) null @else {{$user->phone}}@endif</td>
                                         <td>@if($user->address == null) Empty @else {{$user->address}}@endif</td>
-                                        <td><a href="{{route('users.edit', ['id' => $user->id ])}}"><button class="btn btn-primary" style="background: #0b2e13; border: none"><i class="fa fa-pencil primary"></i></button></a>
+                                        <td><a href="{{route('users.edit', ['id' => base64_encode($user->id) ])}}"><button class="btn btn-primary" style="background: #0b2e13; border: none"><i class="fa fa-pencil primary"></i></button></a>
                                             @if($user->id != 1)
                                                 <button
                                                     onclick="confirmDelete('link', '0', '{{route('users.delete' , ['id'=>$user->id])}}')" class="btn btn-sm btn-danger"
