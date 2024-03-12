@@ -4,10 +4,16 @@
     <style>
         .theme-green .auth-main:after,
         .theme-green .auth-main:before {
-            background: none;
             background-image: url('{{asset('assets/images/image-gallery/Gulf-Biotech-Image.jpg')}}') !important;
             background-size: cover;
             background-position: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            content: '';
+            z-index: -1;
         }
         .card .header {
             padding: 8px;
