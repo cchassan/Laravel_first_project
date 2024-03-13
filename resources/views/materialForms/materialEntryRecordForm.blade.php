@@ -76,7 +76,7 @@
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
                                             <label>Date</label>
-                                            <input type="text" name="date" class="form-control"
+                                            <input type="date" name="date" class="form-control"
                                                    value="{{old('date')}}">
                                         </div>
                                     </div>

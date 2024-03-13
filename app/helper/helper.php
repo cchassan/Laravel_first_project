@@ -9,3 +9,11 @@ function setActive(array $route){
         }
     }
 }
+
+function p($value)
+{
+    echo '<pre>';
+    print_r($value);
+    echo '<pre>';
+    die;
+}

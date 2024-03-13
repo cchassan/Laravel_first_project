@@ -7,7 +7,8 @@ use App\Http\Controllers\MaterialFormController;
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProfileController;
-use \App\Http\Controllers\MaterialReceivingFormController;
+use App\Http\Controllers\MaterialReceivingFormController;
+use App\Http\Controllers\GoodReceivingNotesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,8 +27,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
-
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::resource('roles', RoleController::class);
@@ -42,4 +41,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/profile/updatePassword/{id}', [ProfileController::class, 'updatePassword']) -> name('profile.updatePassword');
     Route::get('/materialEntryRecord', [MaterialFormController::class, 'index'])->name('material.Entry.Record');
     Route::get('/materialReceivingForm', [MaterialReceivingFormController::class, 'index'])->name('material.Receiving.Form');
+    Route::get('/goodsReceivingNotes', [GoodReceivingNotesController::class, 'index'])->name('goods.Receiving.Notes');
 });
