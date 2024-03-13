@@ -8,10 +8,12 @@
             background-size: cover;
             background-position: center;
             position: fixed;
-            z-index: 0;
-        }
-        .theme-green .auth-second {
-
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            content: '';
+            z-index: -1;
         }
         .card .header {
             padding: 8px;
@@ -21,7 +23,6 @@
         }
         .card {
             opacity: 0.8;
-            z-index: 1;
         }
         .footer {
             background-color: rgb(255, 255, 255);
