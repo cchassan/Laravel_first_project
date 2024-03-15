@@ -87,40 +87,7 @@
                     </div>
                     <div class="body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover js-basic-example dataTable table-custom">
-                                <thead>
-                                <tr>
-                                    <th>Sr.#</th>
-                                    <th>name</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tfoot>
-                                <tr>
-                                    <th>Sr.#</th>
-                                    <th>name</th>
-                                    <th>Action</th>
-                                </tr>
-                                </tfoot>
-                                <tbody>
-                                    @foreach ($roles as $index => $role)
-                                    <tr>
-                                        <td> {{$index +1}} </td>
-                                        <td>{{$role->name}}</td>
-                                        <td>
-                                            <a href="{{route('roles.edit',$role->id)}}"><button class="btn btn-primary" style="background: #0b2e13; border: none"><i class="fa fa-pencil primary"></i></button></a>
-                                            <form class="inlineblock"  id="olo-{{$role->id}}" action="{{route('roles.destroy', [$role->id])}}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="button" class="btn btn-danger  btn btn-sm" onclick="confirmDelete('method','{{$role->id}}', 'null' )" title="Delete">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                            {{ $dataTable->table() }}
                         </div>
                     </div>
                 </div>
@@ -131,3 +98,7 @@
 </div>
 
 @endsection
+
+@push('scripts')
+    {{$dataTable -> scripts() }}
+@endpush

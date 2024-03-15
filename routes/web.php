@@ -42,5 +42,4 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/materialEntryRecord', [MaterialFormController::class, 'index'])->name('material.Entry.Record');
     Route::get('/materialReceivingForm', [MaterialReceivingFormController::class, 'index'])->name('material.Receiving.Form');
     Route::get('/goodsReceivingNotes', [GoodReceivingNotesController::class, 'index'])->name('goods.Receiving.Notes');
-    Route::get('/users/data', [PeopleController::class, 'data'])->name('users.data');
 });

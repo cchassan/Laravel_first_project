@@ -6,7 +6,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use DB;
+use Illuminate\Support\Facades\DB;
+use App\DataTables\RoleDataTable;
 
 class RoleController extends Controller
 {
@@ -28,11 +29,13 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(RoleDataTable $dataTable)
     {
-        $roles = Role::orderBy('id','ASC')->paginate(5);
-        return view('roles.index',compact('roles'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+//        $roles = Role::orderBy('id','ASC')->paginate(5);
+//        return view('roles.index',compact('roles'))
+//            ->with('i', ($request->input('page', 1) - 1) * 5);
+
+        return $dataTable->render('roles.index');
     }
 
     /**
@@ -94,9 +97,9 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::find($id);
+        $role = Role::find(base64_decode($id));
         $permission = Permission::get();
-        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
+        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",base64_decode($id))
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             ->all();
 

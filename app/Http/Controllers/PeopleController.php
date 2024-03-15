@@ -18,11 +18,6 @@ class PeopleController extends Controller
         $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
     }
-
-    public function data(UserDataTable $dataTable)
-    {
-        return $dataTable->render('userData');
-    }
     public function index(UserDataTable  $dataTable)
     {
         return $dataTable->render('users');
