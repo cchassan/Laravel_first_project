@@ -1,5 +1,12 @@
 @extends('layouts.app')
-
+{{--@section('css')--}}
+{{--    <style>--}}
+{{--        thead tr{--}}
+{{--            background-color: red;--}}
+{{--            color: white;--}}
+{{--        }--}}
+{{--    </style>--}}
+{{--    @endsection--}}
 @section('content')
 
     <div id="main-content">
@@ -37,8 +44,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
+
     </div>
 
 

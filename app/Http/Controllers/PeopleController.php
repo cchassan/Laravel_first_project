@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
-use DB;
+use Illuminate\Support\Facades\DB;
+use App\DataTables\UserDataTable;
 
 class PeopleController extends Controller
 {
@@ -17,11 +18,14 @@ class PeopleController extends Controller
         $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
     }
-    public function index()
+
+    public function data(UserDataTable $dataTable)
     {
-        $users = User::all();
-        $data = compact('users');
-        return view('users') ->with($data);
+        return $dataTable->render('userData');
+    }
+    public function index(UserDataTable  $dataTable)
+    {
+        return $dataTable->render('users');
     }
     public function create()
     {
@@ -66,7 +70,7 @@ class PeopleController extends Controller
             return redirect()->route('users');
         }else {
 //            $url = url('/users/update/') ."/".$id;
-            $url = route('users.update',$id) ;
+            $url = route('users.update',base64_decode($id)) ;
             $title = "Edit User";
             $roles = Role::pluck('name','name')->all();
             $userRole = $user->roles->pluck('name','name')->all();
@@ -80,7 +84,6 @@ class PeopleController extends Controller
         $request->validate(
             [
                 'name' => ['required', 'string', 'max:255'],
-//                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'email' => 'required|email|max:255|unique:users,email,' . $user->id,
                is_null($request->password) ? : 'password' => ['string', 'min:8',],
                 'roles' => 'required'

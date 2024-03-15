@@ -28,6 +28,7 @@
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/color_skins.css')}}">
+    @yield('css')
 </head>
 <body class="theme-green">
 
