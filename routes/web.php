@@ -9,6 +9,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MaterialReceivingFormController;
 use App\Http\Controllers\GoodReceivingNotesController;
+use App\Http\Controllers\LocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,9 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/locations', [LocationController::class, 'index'])->name('location');
+    Route::post('/location/store', [LocationController::class, 'store'])->name('location.store');
+    Route::get('/location/{id}/edit', [LocationController::class, 'edit'])->name('location.edit');
     Route::resource('roles', RoleController::class);
     Route::get('/users', [PeopleController::class, 'index'])->name('users');
     Route::get('/users/create', [PeopleController::class, 'create'])->name('users.create');
