@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/profile/update/{id}', [ProfileController::class, 'updateProfile']) -> name('profile.update');
     Route::post('/profile/updatePassword/{id}', [ProfileController::class, 'updatePassword']) -> name('profile.updatePassword');
     Route::get('/materialEntryRecord', [MaterialFormController::class, 'index'])->name('material.Entry.Record');
+    Route::post('/materialEntryRecord', [MaterialFormController::class, 'store'])->name('material.Entry.Record.store');
     Route::get('/materialReceivingForm', [MaterialReceivingFormController::class, 'index'])->name('material.Receiving.Form');
     Route::get('/goodsReceivingNotes', [GoodReceivingNotesController::class, 'index'])->name('goods.Receiving.Notes');
 });

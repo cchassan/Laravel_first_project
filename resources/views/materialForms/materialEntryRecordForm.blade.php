@@ -30,61 +30,98 @@
                             </ul>
                         </div>
                         <div class="body">
-                            <form method="POST" action="#" enctype="multipart/form-data">
+                            <form method="POST" action="{{route('material.Entry.Record.store')}}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6 mt-1">
-                                        <label>Serial Number</label>
+                                        <div class="form-group">
+                                        <label>Serial Number<span class="text-danger"> *</span></label>
                                         <input type="text" name="serialNumber" class="form-control autocomplete"
                                                id="name" value="{{old('serialNumber')}}" required>
+                                        </div>
+                                        @error('serialNumber')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
-                                            <label>Item Code</label>
+                                            <label>Item Code <span class="text-danger">*</span></label>
                                             <input type="text" name="itemCode" class="form-control"
-                                                   value="{{old('itemCode')}}">
+                                                   value="{{old('itemCode')}}" required>
                                         </div>
+                                        @error('itemCode')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-12 mt-1">
                                         <div class="form-group">
-                                            <label>Item Description</label>
-                                            <textarea class="form-control" name="description" id="address" rows="2"
-                                            >{{old('description')}}</textarea>
+                                            <label>Item Description <span class="text-danger">*</span></label>
+                                            <textarea class="form-control" name="itemDescription" id="address" rows="2" required
+                                            >{{old('itemDescription')}}</textarea>
                                         </div>
+                                        @error('itemDescription')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-12 mt-1">
                                         <div class="form-group">
-                                            <label>Manufacturer Name</label>
+                                            <label>Manufacturer Name <span class="text-danger">*</span></label>
                                             <input type="text" name="manufacturerName" class="form-control"
-                                                   value="{{old('manufacturerName')}}">
+                                                   value="{{old('manufacturerName')}}" required>
                                         </div>
+                                        @error('manufacturerName')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-12 mt-1">
                                         <div class="form-group">
-                                            <label>Manufacturer Address</label>
-                                            <textarea class="form-control" name="description" id="address" rows="2"
-                                            >{{old('description')}}</textarea>
+                                            <label>Manufacturer Address <span class="text-danger">*</span></label>
+                                            <textarea class="form-control" name="manufacturerAddress" id="address" rows="2" required
+                                            >{{old('manufacturerAddress')}}</textarea>
                                         </div>
+                                        @error('manufacturerAddress')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
-                                            <label>Prepared By</label>
+                                            <label>Prepared By <span class="text-danger">*</span></label>
                                             <input type="text" name="preparedBy" class="form-control"
-                                                   value="{{old('preparedBy')}}">
+                                                   value="{{old('preparedBy')}}" required>
                                         </div>
+                                        @error('preparedBy')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
-                                            <label>Date</label>
+                                            <label>Date <span class="text-danger">*</span></label>
                                             <input type="date" name="date" class="form-control"
-                                                   value="{{old('date')}}">
+                                                   value="{{old('date')}}" required>
                                         </div>
+                                        @error('date')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-12 mt-1">
                                         <div class="form-group">
                                             <label>Remarks (if Any)</label>
-                                            <textarea class="form-control" name="description" id="address" rows="4"
-                                            >{{old('description')}}</textarea>
+                                            <textarea class="form-control" name="remarks" id="address" rows="4"
+                                            >{{old('remarks')}}</textarea>
                                         </div>
                                     </div>
                                 </div>
