@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Models\Location;
 use Yajra\DataTables\Facades\DataTables;
 
 class LocationController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:location-list|location-create|location-edit|location-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:location-create', ['only' => ['create','store']]);
+        $this->middleware('permission:location-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:location-delete', ['only' => ['destroy']]);
+    }
     public function index(Request $request){
         $locations = Location::get();
         if($request->ajax()){
@@ -29,10 +36,11 @@ class LocationController extends Controller
 
     public function store(Request $request){
         if($request->locationId != null) {
-            $request->validate([
-                'location_name' => ['required', 'string'],
-            ]);
+
             $location = Location::find($request->locationId);
+            $request->validate([
+                'location_name' =>  'required|String|max:255|unique:locations,locationName,' . $location->id,
+            ]);
 
                 $location->update([
                     'locationName' => $request->location_name,
@@ -43,7 +51,7 @@ class LocationController extends Controller
         }else {
 
             $request->validate([
-                'location_name' => ['required', 'string', 'unique:locations,locationName'],
+                'location_name' => ['required', 'string', 'max:255', 'unique:locations,locationName'],
             ]);
             Location::create([
                 'locationName' => $request->location_name,
