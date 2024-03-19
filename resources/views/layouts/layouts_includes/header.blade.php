@@ -29,6 +29,23 @@
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/color_skins.css')}}">
+    <style>
+        .page-item.active .page-link {
+            z-index: 3;
+            color: #fff;
+            background-color: #698f2d;
+            border-color: #698f2d;
+        }
+        .page-item.active .page-link:hover {
+            z-index: 3;
+            color: #fff;
+            background-color: #0b2e13;
+            border-color: #0b2e13;
+        }
+        .pagination>li>a, .pagination>li>span {
+            color: #698f2d;
+        }
+    </style>
     @yield('css')
 </head>
 <body class="theme-green">

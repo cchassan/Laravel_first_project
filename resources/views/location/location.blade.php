@@ -126,7 +126,14 @@
                         console.log(response.success);
                         $('#modalAddLocation').modal('hide');
                         toastr["success"](response.success);
-                        $('.location_table').DataTable().ajax.reload();
+                        $('.location_table').DataTable().ajax.reload(
+                            function(json) {
+                                // Update the index column
+                                var table = $('.location_table').DataTable();
+                                table.column(0, {search:'applied', order:'applied'}).nodes().each(function(cell, i) {
+                                    cell.innerHTML = i + 1;
+                                });
+                            });
                     },
                     error: function(error){
                         console.log(error);
@@ -156,6 +163,48 @@
                 });
 
             });
+
+            $('body').on('click', '.delBtn', function (e){
+                e.preventDefault();
+                var id = $(this).data('id');
+
+                swal({
+                    title: "Are you sure?",
+                    text: "You will not be able to recover this imaginary file!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#dc3545",
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel plx!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                }, function (isConfirm) {
+                    if (isConfirm) {
+
+                        $.ajax({
+                            url: '{{ url("location", '') }}' + '/' + id + '/delete',
+                            method: 'GET',
+                            success: function (response){
+                                swal.close(); // Close the SweetAlert dialog
+                                toastr["success"](response.success);
+                                $('.location_table').DataTable().ajax.reload(function(json) {
+                                    // Update the index column
+                                    var table = $('.location_table').DataTable();
+                                    table.column(0, {search:'applied', order:'applied'}).nodes().each(function(cell, i) {
+                                        cell.innerHTML = i + 1;
+                                    });
+                                });
+                            },
+                            error: function (error){
+                                console.log(error);
+                            }
+
+                        });
+                    } else {
+                        swal("Cancelled", "Your imaginary file is safe :)", "error");
+                    }
+                });
+            });
         });
 
         function locationTable(){
@@ -164,7 +213,15 @@
                 serverSide : true,
                 ajax: "{{route('location')}}",
                 columns: [
-                    {data : 'id'},
+                    {
+                        data: null,
+                        name: 'index',
+                        orderable: false,
+                        searchable: false,
+                        render: function (data, type, row, meta) {
+                            return meta.row + 1; // Start index from 1
+                        }
+                    },
                     {data : 'locationName'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ]
