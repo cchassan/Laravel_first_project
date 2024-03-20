@@ -27,6 +27,10 @@ class PermissionTableSeeder extends Seeder
             'location-create',
             'location-edit',
             'location-delete',
+            'material-record-Entry-list',
+            'material-record-Entry-create',
+            'material-record-Entry-edit',
+            'material-record-Entry-delete',
         ];
 
         foreach ($permissions as $permission) {
