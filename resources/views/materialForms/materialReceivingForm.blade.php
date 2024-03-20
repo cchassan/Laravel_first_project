@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+
+@endsection
+
 @section('content')
 
 <div id="main-content">
@@ -59,14 +63,24 @@
                                 </div>
                                 <div class="col-md-3 mt-1">
                                     <label>Item Code</label>
-                                    <input type="text" name="itemCode" class="form-control autocomplete"
-                                           id="name" value="{{old('itemCode')}}" required>
+                                    <select class="form-control" name="itemCode" id="itemCode" required>
+                                        <option value="">Select Item Code</option>
+                                    </select>
                                 </div>
+{{--                                <div class="col-md-3 mt-1">--}}
+{{--                                    <label>Item Code</label>--}}
+{{--                                    <input type="text" name="itemCode" class="form-control autocomplete"--}}
+{{--                                           id="itemCode" value="{{old('itemCode')}}" required>--}}
+{{--                                    <!-- Suggestion list -->--}}
+{{--                                    <div class="dropdown" id="dropdown">--}}
+{{--                                        <div class="suggestion-itemCode-list dropdown-ItemCode" aria-labelledby="dropdownItemCodeButton"></div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                                 <div class="col-md-6 mt-1">
                                     <div class="form-group">
                                         <label>Item Description</label>
-                                        <textarea class="form-control" name="description" id="address" rows="2"
-                                        >{{old('description')}}</textarea>
+                                        <textarea class="form-control" name="itemDescription" id="itemDescription" rows="2" readonly
+                                        >{{old('itemDescription')}}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-3 mt-1">
@@ -80,8 +94,8 @@
                                 <div class="col-md-6 mt-1">
                                     <div class="form-group">
                                         <label>Manufacturer Name</label>
-                                        <input type="text" name="manufacturerName" class="form-control"
-                                               value="{{old('manufacturerName')}}">
+                                        <input type="text" name="manufacturerName" id="manufacturerName" class="form-control"
+                                               value="{{old('manufacturerName')}}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mt-1">
@@ -115,10 +129,10 @@
                                 <div class="col-md-6 mt-1">
                                     <label for="measuring">Warehouse Location</label>
                                     <select class="form-control" name="warehouseLocation">
-                                        <option>GF Warehouse</option>
-                                        <option>FF Warehouse</option>
-                                        <option>Quarantine</option>
-                                        <option>Cold Room</option>
+                                        <option value="" selected>Select Location</option>
+                                        @foreach($locations as $location )
+                                            <option value="{{ $location->id }}">{{ $location->locationName}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-md-6 mt-1"></div>
@@ -220,3 +234,81 @@
 
 @endsection
 
+@push('scripts')
+{{--    <script>--}}
+{{--        $(document).ready(function() {--}}
+{{--            $('#itemCode').on('input', function() {--}}
+{{--                var inputVal = $(this).val();--}}
+{{--                if (inputVal.length >= 2) { // Adjust as per your requirement--}}
+{{--                    $.ajax({--}}
+{{--                        url: "{{ route('get.item.codes') }}",--}}
+{{--                        method: 'POST',--}}
+{{--                        data: {--}}
+{{--                            query: inputVal ,--}}
+{{--                            _token: '{{ csrf_token() }}'--}}
+{{--                        },--}}
+{{--                        success: function(response) {--}}
+{{--                            var suggestionList = $('.suggestion-itemCode-list');--}}
+{{--                            suggestionList.empty();--}}
+{{--                            if (response.length > 0) {--}}
+{{--                                $.each(response, function(index, item) {--}}
+{{--                                    var dropdownItem = $('<a class="dropdown-ItemCode"  data-item-id="' + item.id + '">' + item.itemCode + '</a>');--}}
+{{--                                    dropdownItem.click(function() {--}}
+{{--                                        var itemId = $(this).data('item-id');--}}
+{{--                                        var itemCode = $(this).text();--}}
+{{--                                        $('#itemCode').val(itemCode);--}}
+{{--                                        $('#itemId').val(itemId); // Set the value of hidden input field--}}
+{{--                                    });--}}
+{{--                                    suggestionList.append(dropdownItem);--}}
+{{--                                });--}}
+{{--                                suggestionList.parent().addClass('show');--}}
+{{--                            } else {--}}
+{{--                                suggestionList.parent().removeClass('show');--}}
+{{--                            }--}}
+{{--                        }--}}
+{{--                    });--}}
+{{--                }--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#itemCode').select2({
+            placeholder: 'Select an item code',
+            minimumInputLength: 2, // Adjust as per your requirement
+            ajax: {
+                url: "{{ route('get.item.codes') }}",
+                method: 'POST',
+                dataType: 'json',
+                delay: 250, // Delay in milliseconds before the request is sent
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                id: item.id,
+                                text: item.itemCode,
+                                itemDescription: item.itemDescription,
+                                manufacturer: item.manufacturerName,
+                            };
+                        })
+                    };
+                },
+                cache: true // Cache AJAX requests to reduce server load
+            }
+        }).on('select2:select', function (e) {
+            var itemDescription = e.params.data.itemDescription;
+            var manufacturer = e.params.data.manufacturer;
+            $('#itemDescription').val(itemDescription);
+            $('#manufacturerName').val(manufacturer);
+        });
+    });
+
+    </script>
+@endpush

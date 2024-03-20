@@ -29,6 +29,7 @@
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/color_skins.css')}}">
+
     <style>
         .page-item.active .page-link {
             z-index: 3;
