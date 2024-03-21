@@ -64,9 +64,6 @@
 <div id="wrapper">
     @if(!request()->is('login')  && !request()->is('password/reset*') )
     @include('layouts/layouts_includes/tob_bar')
-
-    @include('layouts/layouts_includes/right_bar')
-
     @include('layouts/layouts_includes/side_bar')
    @endif
 
