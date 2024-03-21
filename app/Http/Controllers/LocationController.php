@@ -31,7 +31,7 @@ class LocationController extends Controller
                 ->rawColumns(['action', 'id'])->make(true);
         }
 
-        return view('location/location');
+        return view('location.location');
     }
 
     public function store(Request $request){

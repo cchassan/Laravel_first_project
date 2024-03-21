@@ -26,16 +26,31 @@
         <nav id="left-sidebar-nav" class="sidebar-nav">
             <ul id="main-menu" class="metismenu">
                 <li class="{{setActive(['home'])}}"><a href="{{route('home')}}"><i class="icon-home"></i><span>Dashboard</span></a></li>
+                @can('location-create')
                 <li class="{{setActive(['location'])}}"><a href="{{route('location')}}"><i class="icon-globe"></i><span>Locations</span></a></li>
+                @endcan
+
                 <li class="{{setActive(['material.Entry.Record', 'material.Receiving.Form', 'goods.Receiving.Notes'])}}">
                     <a href="#WarehouseForm" class="has-arrow"><i class="icon-equalizer"></i><span>Warehouse Form</span></a>
                     <ul>
+                        @can('material-record-Entry-create')
                         <li class="{{setActive(['material.Entry.Record'])}}"><a href="{{route('material.Entry.Record')}}">Material Entry Record</a></li>
+                        @endcan
                         <li class="{{setActive(['material.Receiving.Form'])}}"><a href="{{route('material.Receiving.Form')}}">Material Receiving Form</a></li>
                         <li class="{{setActive(['goods.Receiving.Notes'])}}"><a href="{{route('goods.Receiving.Notes')}}">Goods Receiving Notes</a></li>
                         <li><a href="#">Bin Card</a></li>
                     </ul>
                 </li>
+
+                <li class="{{setActive(['material.Entry.Record.Report'])}}">
+                    <a href="#Reports" class="has-arrow"><i class="icon-equalizer"></i><span>Reports</span></a>
+                    <ul>
+                        @can('material-record-Entry-list')
+                        <li class="{{setActive(['material.Entry.Record.Report'])}}"><a href="{{route('material.Entry.Record.Report')}}">Material Entry Record Reports</a></li>
+                        @endcan
+                    </ul>
+                </li>
+
                 @if(Auth::user()->roles->pluck('name')[0] == 'Admin')
                 <li class="{{setActive(['users' ,'roles.index'])}} ">
                     <a href="#People" class="has-arrow"><i class="fa fa-user"></i><span>People</span></a>

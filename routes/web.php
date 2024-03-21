@@ -44,7 +44,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('/profile/update/{id}', [ProfileController::class, 'updateProfile']) -> name('profile.update');
     Route::post('/profile/updatePassword/{id}', [ProfileController::class, 'updatePassword']) -> name('profile.updatePassword');
-    Route::get('/materialEntryRecord', [MaterialFormController::class, 'index'])->name('material.Entry.Record');
+    Route::get('/materialEntryRecord', [MaterialFormController::class, 'create'])->name('material.Entry.Record');
+    Route::get('/materialEntryRecord/edit/{id}', [MaterialFormController::class, 'edit'])->name('material.Entry.Record.edit');
+    Route::post('/materialEntryRecord/update/{id}', [MaterialFormController::class, 'update'])->name('material.Entry.Record.update');
+    Route::get('/materialEntryRecordReport/delete/{id}', [MaterialFormController::class, 'delete'])->name('material.Entry.Record.delete');
+    Route::get('/materialEntryRecordReport', [MaterialFormController::class, 'index'])->name('material.Entry.Record.Report');
     Route::post('/materialEntryRecord', [MaterialFormController::class, 'store'])->name('material.Entry.Record.store');
     Route::get('/materialReceivingForm', [MaterialReceivingFormController::class, 'index'])->name('material.Receiving.Form');
     Route::post('/get-item-codes', [MaterialReceivingFormController::class, 'getItemCodes'])->name('get.item.codes');
