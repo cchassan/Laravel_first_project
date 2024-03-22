@@ -38,10 +38,10 @@ class MaterialReceive extends Model
 
 
     function getMaterialItem(){
-        return $this->hasOne('App\Models\MaterialRecordEntry', 'material_record_id');
+        return $this->belongsTo('App\Models\MaterialRecordEntry', 'material_record_id');
     }
 
-    function getWarehoseLocation(){
-        return $this->hasOne('App\Models\Location', 'location_id');
+    function getWarehouseLocation(){
+        return $this->belongsTo('App\Models\Location', 'location_id');
     }
 }

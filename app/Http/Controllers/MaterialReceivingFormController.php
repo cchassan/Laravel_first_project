@@ -6,10 +6,53 @@ use App\Models\Location;
 use App\Models\MaterialRecordEntry;
 use App\Models\MaterialReceive;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Yajra\DataTables\Facades\DataTables;
 
 class MaterialReceivingFormController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
+        $materialReceive = MaterialReceive::with(['getMaterialItem', 'getWarehouseLocation']) ->get();
+
+        if($request->ajax()){
+            return DataTables::of($materialReceive)->addIndexColumn()
+                ->addColumn('material_item', function($row) {
+                    return $row->getMaterialItem->itemDescription??""; // Accessing related data
+                })
+                ->addColumn('warehouse_location', function($row) {
+                    return $row->getWarehouseLocation->locationName??""; // Accessing related data
+                })
+                ->addColumn('action',  function($row) {
+                    $deleteButton = '';
+                    $viewButton = '';
+                    $editButton = '';
+                    if (Gate::allows('material-record-Entry-delete')) {
+                        $deleteButton = '<button onclick="confirmDelete(\'link\', 0, \''.route('material.Entry.Record.delete', $row->material_record_id).'\')"" class="btn btn-sm btn-danger delBtn" data-id="' . $row->id . '"
+                                                data-toggle="tooltip" title="delete">
+                                                <i class="fa fa-times"></i>
+                                            </button>';
+                    }
+                    if (Gate::allows('material-record-Entry-list')) {
+                        $viewButton = '<button class="btn btn-sm btn-primary viewBtn" data-id="' . $row->material_receive_id . '" data-sr="' . $row->serialNumber . '"
+                                           data-itemcode="' . $row->itemCode . '" data-itemdescription="' . $row->itemDescription . '"
+                                           data-manufacturername="' . $row->manufacturerName . '" data-manufactureraddress="' . $row->manufacturerAddress . '"
+                                           data-preparedby="' . $row->preparedBy . '" data-date="' . $row->date . '" data-remarks="' . $row->remarks . '"
+                                                data-toggle="tooltip" title="view">
+                                                <i class="fa fa-eye"></i>
+                                            </button>';
+                    }
+
+                    if (Gate::allows('material-record-Entry-edit')) {
+                        $editButton = '<a href="' . route("material.Receiving.Form.edit", $row->material_receive_id) . '" class="btn btn-primary editBtn" data-id="'.$row->material_record_id.'" style="background: #0b2e13; border: none"> <i class="fa fa-pencil primary"></i></a>';
+                    }
+                    return $viewButton.' '.$editButton . ' '.$deleteButton;
+                })
+                ->rawColumns(['action', 'id', 'material_item', 'warehouse_location'])->make(true);
+        }
+        return view('reports/material_receive_report');
+//        return $materialReceive;
+    }
+    public function create(){
         $locations = Location::get();
         return view('materialForms.materialReceivingForm')->with(compact('locations'));
     }
@@ -83,5 +126,18 @@ class MaterialReceivingFormController extends Controller
             'type'=> "success",
         );
             return redirect()->route('material.Receiving.Form') ->with($message);
+    }
+
+    public function edit($id)
+    {
+     $materialReceive = MaterialReceive::with(['getMaterialItem', 'getWarehouseLocation'])->find($id);
+        if(is_null($materialReceive)){
+            return redirect()->route('reports.material.Receiving.Report');
+        }
+        else {
+            $locations = Location::get();
+            $data = compact(['materialReceive', 'locations']);
+        }
+        return view('materialForms.editMaterialReceivingForm')->with($data);
     }
 }
