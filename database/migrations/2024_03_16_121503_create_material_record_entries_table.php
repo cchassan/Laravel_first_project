@@ -14,7 +14,7 @@ class CreateMaterialRecordEntriesTable extends Migration
     public function up()
     {
         Schema::create('material_record_entries', function (Blueprint $table) {
-            $table->id();
+            $table->id('material_record_id');
             $table->string('serialNumber');
             $table->string('itemCode');
             $table->string('itemDescription');

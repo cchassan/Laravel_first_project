@@ -11,6 +11,7 @@ class MaterialRecordEntry extends Model
     use HasFactory, HasRoles;
 
     protected $table = 'material_record_entries';
+    protected $primaryKey = 'material_record_id';
     protected $fillable = [
         'serialNumber',
         'itemCode',

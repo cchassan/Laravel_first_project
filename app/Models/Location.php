@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Location extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $primaryKey = 'location_id';
 
     protected $fillable = [
         'locationName'

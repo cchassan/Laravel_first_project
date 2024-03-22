@@ -62,13 +62,13 @@ class MaterialFormController extends Controller
                     $viewButton = '';
                     $editButton = '';
                     if (Gate::allows('material-record-Entry-delete')) {
-                        $deleteButton = '<button onclick="confirmDelete(\'link\', 0, \''.route('material.Entry.Record.delete', $row->id).'\')"" class="btn btn-sm btn-danger delBtn" data-id="' . $row->id . '"
+                        $deleteButton = '<button onclick="confirmDelete(\'link\', 0, \''.route('material.Entry.Record.delete', $row->material_record_id).'\')"" class="btn btn-sm btn-danger delBtn" data-id="' . $row->id . '"
                                                 data-toggle="tooltip" title="delete">
                                                 <i class="fa fa-times"></i>
                                             </button>';
                     }
                     if (Gate::allows('material-record-Entry-list')) {
-                        $viewButton = '<button class="btn btn-sm btn-primary viewBtn" data-id="' . $row->id . '" data-sr="' . $row->serialNumber . '"
+                        $viewButton = '<button class="btn btn-sm btn-primary viewBtn" data-id="' . $row->material_record_id . '" data-sr="' . $row->serialNumber . '"
                                            data-itemcode="' . $row->itemCode . '" data-itemdescription="' . $row->itemDescription . '"
                                            data-manufacturername="' . $row->manufacturerName . '" data-manufactureraddress="' . $row->manufacturerAddress . '"
                                            data-preparedby="' . $row->preparedBy . '" data-date="' . $row->date . '" data-remarks="' . $row->remarks . '"
@@ -78,7 +78,7 @@ class MaterialFormController extends Controller
                     }
 
                     if (Gate::allows('material-record-Entry-edit')) {
-                        $editButton = '<a href="' . route("material.Entry.Record.edit", $row->id) . '" class="btn btn-primary editBtn" data-id="'.$row->id.'" style="background: #0b2e13; border: none"> <i class="fa fa-pencil primary"></i></a>';
+                        $editButton = '<a href="' . route("material.Entry.Record.edit", $row->material_record_id) . '" class="btn btn-primary editBtn" data-id="'.$row->material_record_id.'" style="background: #0b2e13; border: none"> <i class="fa fa-pencil primary"></i></a>';
                     }
                     return $viewButton.' '.$editButton . ' '.$deleteButton;
                 })
