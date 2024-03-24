@@ -459,6 +459,5 @@
             $('#manufacturerName').val(manufacturer);
         });
     });
-
     </script>
 @endpush
