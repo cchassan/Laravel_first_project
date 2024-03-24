@@ -1,33 +1,50 @@
 @extends('layouts.app')
 
-@section('css')
+@push('css')
+
     <style>
+
+        /*.select2-container--default .select2-selection--single .select2-selection__rendered {*/
+        /*    color: #444;*/
+        /*    line-height: 32px;*/
+        /*}*/
+        /*.select2-selection__arrow {*/
+        /*    height: 36px;*/
+        /*    position: absolute;*/
+        /*    top: 1px;*/
+        /*    right: 1px;*/
+        /*    width: 20px;*/
+        /*}*/
+        /*.select2-container .select2-selection--single {*/
+        /*    box-sizing: border-box;*/
+        /*    cursor: pointer;*/
+        /*    display: block;*/
+        /*    height: 36px;*/
+        /*    user-select: none;*/
+        /*    -webkit-user-select: none;*/
+        /*}*/
+
+        .select2-container--default .select2-selection--single {
+            height: 36px;
+        }
+
         .select2-container--default .select2-selection--single .select2-selection__rendered {
-            color: #444;
-            line-height: 32px;
+            line-height: 35px;
         }
-        .select2-selection__arrow {
-            height: 36px;
-            position: absolute;
-            top: 1px;
-            right: 1px;
-            width: 20px;
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 31px;
+            right: 4px;
         }
-        .select2-container .select2-selection--single {
-            box-sizing: border-box;
-            cursor: pointer;
-            display: block;
-            height: 36px;
-            user-select: none;
-            -webkit-user-select: none;
-        }
+
     </style>
 
-@endsection
+@endpush
 
 @section('content')
 
 <div id="main-content">
+
     {{--        @include('backend.vendor.includes.blockHeader')--}}
     <div class="block-header">
         <div class="row clearfix">
@@ -108,7 +125,7 @@
                                 </div>
                                 <div class="col-md-3 mt-1">
                                     <label>Item Code</label>
-                                    <select class="form-control" name="itemCode" id="itemCode"  >
+                                    <select class="form-control" name="itemCode" id="itemCode">
                                         <option value="">Select Item Code</option>
                                     </select>
                                     @error('itemCode')
@@ -415,12 +432,17 @@
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
+                data: function (params) {
+                    return {
+                        query: params.term
+                    };
+                },
                 processResults: function(data) {
                     return {
                         results: $.map(data, function(item) {
                             return {
                                 id: item.material_record_id,
-                                text: item.itemCode,
+                                text: item.itemCode + ' - ' + item.itemDescription,
                                 itemDescription: item.itemDescription,
                                 manufacturer: item.manufacturerName,
                             };
@@ -432,6 +454,7 @@
         }).on('select2:select', function (e) {
             var itemDescription = e.params.data.itemDescription;
             var manufacturer = e.params.data.manufacturer;
+            $('#itemCode').val(e.params.data.id).trigger('change');
             $('#itemDescription').val(itemDescription);
             $('#manufacturerName').val(manufacturer);
         });

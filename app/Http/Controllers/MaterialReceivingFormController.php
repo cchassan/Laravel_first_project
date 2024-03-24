@@ -62,14 +62,14 @@ class MaterialReceivingFormController extends Controller
     {
         $query = $request->input('query');
 
-        // Retrieve item codes based on user input
-        $itemCodes = MaterialRecordEntry::where('itemCode', 'like', "%$query%")->get();
+        $itemCodes = MaterialRecordEntry::where('itemCode', 'like', "%$query%")
+            ->orWhere('itemDescription', 'like', "%$query%")
+            ->get();
         return response()->json($itemCodes);
     }
 
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-
         $request->validate(
             [
                 'serialNumber' => ['required', 'string', 'max:255'],
