@@ -106,7 +106,7 @@ class MaterialFormController extends Controller
         $request->validate(
            [
                'serialNumber' => ['required', 'string', 'max:255'],
-               'itemCode' => 'required|string|unique:material_record_entries,itemCode,' . $materialEntryRecord->id,
+               'itemCode' => 'required|string|unique:material_record_entries,itemCode,' . $materialEntryRecord->material_record_id,
                'itemDescription' => ['required', 'string'],
                'manufacturerName' => ['required', 'string', 'max:255'],
                'manufacturerAddress' => ['required', 'string'],

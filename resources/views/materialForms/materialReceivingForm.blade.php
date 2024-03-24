@@ -442,7 +442,7 @@
                         results: $.map(data, function(item) {
                             return {
                                 id: item.material_record_id,
-                                text: item.itemCode + ' - ' + item.itemDescription,
+                                text: item.itemCode,
                                 itemDescription: item.itemDescription,
                                 manufacturer: item.manufacturerName,
                             };

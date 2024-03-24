@@ -30,7 +30,7 @@
                             </ul>
                         </div>
                         <div class="body">
-                            <form method="POST" action="{{route('material.Entry.Record.update', ['id' => $materialRecordEntry->id])}}" enctype="multipart/form-data">
+                            <form method="POST" action="{{route('material.Entry.Record.update', ['id' => $materialRecordEntry->material_record_id])}}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6 mt-1">

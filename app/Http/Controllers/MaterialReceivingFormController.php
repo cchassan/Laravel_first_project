@@ -63,7 +63,7 @@ class MaterialReceivingFormController extends Controller
         $query = $request->input('query');
 
         $itemCodes = MaterialRecordEntry::where('itemCode', 'like', "%$query%")
-            ->orWhere('itemDescription', 'like', "%$query%")
+//            ->orWhere('itemDescription', 'like', "%$query%")
             ->get();
         return response()->json($itemCodes);
     }
@@ -139,5 +139,66 @@ class MaterialReceivingFormController extends Controller
             $data = compact(['materialReceive', 'locations']);
         }
         return view('materialForms.editMaterialReceivingForm')->with($data);
+    }
+
+    public function update($id, Request $request): \Illuminate\Http\RedirectResponse
+    {
+        $materialReceive = MaterialReceive::find($id);
+        dd($request->all());
+//        dd($request->itemCode ?? $materialReceive->material_record_id);
+        $request->validate(
+            [
+                'serialNumber' => ['required', 'string', 'max:255'],
+//                'mrrCode' => 'required|string|unique:material_receives,mrrCode,' . $materialReceive->material_receive_id,
+                'poNumber' => ['required', 'string', 'max:255'],
+                'vendorNumber' => ['required', 'string','max:255'],
+                'itemCode' => ['required', 'string',],
+                'measuring' => ['required', 'string'],
+                'supplier' => ['required', 'string', 'max:255'],
+                'batchNo' => ['required', 'string'],
+                'mfgDate' => ['required', 'date'],
+                'expDate' => ['required', 'date'],
+                'locationName' => ['required', 'string'],
+                'totalQuantity' => ['required', 'integer'],
+                'numberOfPackage' => ['required', 'integer'],
+                'deliveryChallanNumber' => ['required', 'string'],
+                'coaAttached' => ['required', 'string'],
+                'materialControlNumber' => ['required', 'integer'],
+                'quantityReceived' => ['required', 'integer'],
+                'quantityRejected' => ['required', 'integer'],
+                'preparedBy' => ['required', 'string'],
+                'date' => ['required', 'date'],
+            ]
+        );
+
+        $materialReceive->serialNumber = $request->serialNumber;
+        $materialReceive->mrrCode = $request->mrrCode;
+        $materialReceive->poNumber = $request->poNumber;
+        $materialReceive->vendorNumber = $request->vendorNumber;
+        $materialReceive->material_record_id = $request->itemCode;
+        $materialReceive->unitOfMeasuring = $request->measuring;
+        $materialReceive->supplier = $request->supplier;
+        $materialReceive->batchNo = $request->batchNo;
+        $materialReceive->mfgDate = $request->mfgDate;
+        $materialReceive->expDate = $request->expDate;
+        $materialReceive->location_id = $request->locationName;
+        $materialReceive->totalQuantity = $request->totalQuantity;
+        $materialReceive->numberOfPackage = $request->numberOfPackage;
+        $materialReceive->deliveryChallanNumber = $request->deliveryChallanNumber;
+        $materialReceive->coaAttached = $request->coaAttached;
+        $materialReceive->materialControlNumber = $request->materialControlNumber;
+        $materialReceive->quantityReceived = $request->quantityReceived;
+        $materialReceive->quantityRejected = $request->quantityRejected;
+        $materialReceive->damagedQuantity = $request->damagedQuantity;
+        $materialReceive->preparedBy = $request->preparedBy;
+        $materialReceive->date = $request->date;
+        $materialReceive->remarks = $request->remarks;
+
+        $materialReceive->update();
+        $message = array(
+            'message' => "Material Receiving Form Updated Successfully.",
+            'type'=> "success",
+        );
+        return redirect()->route('material.Receiving.Form') ->with($message);
     }
 }
