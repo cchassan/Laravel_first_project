@@ -109,7 +109,7 @@
                                     <div class="col-md-3 mt-1">
                                         <label>Item Code</label>
                                         <select class="form-control" name="itemCode" id="itemCode"  >
-                                            <option value="{{$materialReceive->getMaterialItem->id}}">{{$materialReceive->getMaterialItem->itemCode}}</option>
+                                            <option value="{{$materialReceive->getMaterialItem->material_record_id}}">{{$materialReceive->getMaterialItem->itemCode}}</option>
                                         </select>
                                         @error('itemCode')
                                         <span class="text-danger">

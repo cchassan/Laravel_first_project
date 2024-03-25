@@ -17,10 +17,11 @@ class MaterialReceivingFormController extends Controller
         if($request->ajax()){
             return DataTables::of($materialReceive)->addIndexColumn()
                 ->addColumn('material_item', function($row) {
-                    return $row->getMaterialItem->itemDescription??""; // Accessing related data
+                    return $row->getMaterialItem->itemCode ?? ""; // Accessing related data
                 })
                 ->addColumn('warehouse_location', function($row) {
-                    return $row->getWarehouseLocation->locationName??""; // Accessing related data
+
+                    return $row->getWarehouseLocation->locationName ?? ""; // Accessing related data
                 })
                 ->addColumn('action',  function($row) {
                     $deleteButton = '';
@@ -62,14 +63,14 @@ class MaterialReceivingFormController extends Controller
     {
         $query = $request->input('query');
 
-        $itemCodes = MaterialRecordEntry::where('itemCode', 'like', "%$query%")
-//            ->orWhere('itemDescription', 'like', "%$query%")
-            ->get();
+        // Retrieve item codes based on user input
+        $itemCodes = MaterialRecordEntry::where('itemCode', 'like', "%$query%")->get();
         return response()->json($itemCodes);
     }
 
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
+
         $request->validate(
             [
                 'serialNumber' => ['required', 'string', 'max:255'],
@@ -141,15 +142,16 @@ class MaterialReceivingFormController extends Controller
         return view('materialForms.editMaterialReceivingForm')->with($data);
     }
 
+
     public function update($id, Request $request): \Illuminate\Http\RedirectResponse
     {
         $materialReceive = MaterialReceive::find($id);
-        dd($request->all());
+//        dd($request->all());
 //        dd($request->itemCode ?? $materialReceive->material_record_id);
         $request->validate(
             [
                 'serialNumber' => ['required', 'string', 'max:255'],
-//                'mrrCode' => 'required|string|unique:material_receives,mrrCode,' . $materialReceive->material_receive_id,
+                'mrrCode' => 'required|string|unique:material_receives,mrrCode,' . $materialReceive->material_receive_id .',material_receive_id',
                 'poNumber' => ['required', 'string', 'max:255'],
                 'vendorNumber' => ['required', 'string','max:255'],
                 'itemCode' => ['required', 'string',],
@@ -199,6 +201,6 @@ class MaterialReceivingFormController extends Controller
             'message' => "Material Receiving Form Updated Successfully.",
             'type'=> "success",
         );
-        return redirect()->route('material.Receiving.Form') ->with($message);
+        return redirect()->route('material.Receiving.Report') ->with($message);
     }
 }

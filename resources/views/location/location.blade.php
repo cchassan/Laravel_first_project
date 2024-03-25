@@ -154,7 +154,7 @@
                         $('#modal-Title').html('Edit Location');
                         $('#saveBtn').html('Update');
                         $('#location_name').val(response.locationName);
-                        $('#locationId').val(response.id);
+                        $('#locationId').val(response.location_id);
                     },
                     error: function (error){
                         console.log(error);
@@ -213,15 +213,7 @@
                 serverSide : true,
                 ajax: "{{route('location')}}",
                 columns: [
-                    {
-                        data: null,
-                        name: 'index',
-                        orderable: false,
-                        searchable: false,
-                        render: function (data, type, row, meta) {
-                            return meta.row + 1; // Start index from 1
-                        }
-                    },
+                    {data : 'location_id', name:'action', orderable: false,searchable: false},
                     {data : 'locationName'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ]

@@ -30,8 +30,6 @@
     <link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/color_skins.css')}}">
 
-    @stack('css')
-
     <style>
         .page-item.active .page-link {
             z-index: 3;
@@ -49,6 +47,7 @@
             color: #698f2d;
         }
     </style>
+    @yield('css')
 </head>
 <body class="theme-green">
 
