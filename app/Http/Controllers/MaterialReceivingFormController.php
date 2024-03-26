@@ -28,15 +28,16 @@ class MaterialReceivingFormController extends Controller
                     $viewButton = '';
                     $editButton = '';
                     if (Gate::allows('material-record-Entry-delete')) {
-                        $deleteButton = '<button onclick="confirmDelete(\'link\', 0, \''.route('material.Entry.Record.delete', $row->material_record_id).'\')"" class="btn btn-sm btn-danger delBtn" data-id="' . $row->id . '"
+                        $deleteButton = '<button onclick="confirmDelete(\'link\', 0, \''.route('material.Receiving.Form.delete', $row->material_receive_id).'\')"" class="btn btn-sm btn-danger delBtn" data-id="' . $row->id . '"
                                                 data-toggle="tooltip" title="delete">
                                                 <i class="fa fa-times"></i>
                                             </button>';
                     }
                     if (Gate::allows('material-record-Entry-list')) {
                         $viewButton = '<button class="btn btn-sm btn-primary viewBtn" data-id="' . $row->material_receive_id . '" data-sr="' . $row->serialNumber . '"
-                                           data-itemcode="' . $row->itemCode . '" data-itemdescription="' . $row->itemDescription . '"
-                                           data-manufacturername="' . $row->manufacturerName . '" data-manufactureraddress="' . $row->manufacturerAddress . '"
+                                           data-mrrcode="'.$row->mrrCode .'" data-ponumber="'.$row->poNumber .'" data-vendornumber="'.$row->vendorNumber .'"
+                                           data-itemcode="' . $row->getMaterialItem->itemCode . '" data-itemdescription="' . $row->getMaterialItem->itemDescription . '"
+                                           data-manufacturername="' . $row->getMaterialItem->manufacturerName . '" data-manufactureraddress="' . $row->manufacturerAddress . '"
                                            data-preparedby="' . $row->preparedBy . '" data-date="' . $row->date . '" data-remarks="' . $row->remarks . '"
                                                 data-toggle="tooltip" title="view">
                                                 <i class="fa fa-eye"></i>
@@ -46,7 +47,7 @@ class MaterialReceivingFormController extends Controller
                     if (Gate::allows('material-record-Entry-edit')) {
                         $editButton = '<a href="' . route("material.Receiving.Form.edit", $row->material_receive_id) . '" class="btn btn-primary editBtn" data-id="'.$row->material_record_id.'" style="background: #0b2e13; border: none"> <i class="fa fa-pencil primary"></i></a>';
                     }
-                    return $viewButton.' '.$editButton . ' '.$deleteButton;
+                    return $editButton . ' '.$deleteButton;
                 })
                 ->rawColumns(['action', 'id', 'material_item', 'warehouse_location'])->make(true);
         }
@@ -202,5 +203,18 @@ class MaterialReceivingFormController extends Controller
             'type'=> "success",
         );
         return redirect()->route('material.Receiving.Report') ->with($message);
+    }
+
+    public function delete ($id){
+        $materialReceive = MaterialReceive::find($id);
+        dd($materialReceive);
+        if(!is_null($materialReceive)) {
+            $materialReceive->delete();
+        }
+        $message = array(
+            'message' => "Material Receiving Report Delete Successfully.",
+            'type'=> "success",
+        );
+        return redirect()->route('material.Receiving.Report') -> with($message);
     }
 }

@@ -67,20 +67,33 @@
     </div>
 
     <div class="modal fade" id="materialEntryRecordDetail" tabindex="-1" role="dialog" aria-labelledby="materialEntryRecordDetail" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Material Entry Record Detail</h5>
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Material Receiving Report</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body m-2">
-                    <div class="row"><h6 class="col-md-6">Serial Number:</h6> <h6 class="font-weight-normal col-md-6" id="serialNumber"></h6></div><br>
-                    <div class="row"><h6 class="col-md-6">Item Code:</h6><h6 class=" font-weight-normal col-md-6" id="itemCode"></h6></div><br>
-                    <div class="row"><h6 class="col-md-6">Item Description:</h6><h6 class=" font-weight-normal col-md-12" id="itemDescription"></h6></div><br>
-                    <div class="row"><h6 class="col-md-6">Manufacturer Name:</h6><h6 class=" font-weight-normal col-md-12" id="manufacturerName"></h6></div><br>
-                    <div class="row"><h6 class="col-md-6">Manufacturer Address:</h6><h6 class=" font-weight-normal col-md-12" id="manufacturerAddress"></h6></div><br>
+                    <div class="col-md-12">
+                        <h6> Serial Number: </h6>
+                        <h6 class="font-weight-normal" id="serialNumber"></h6>
+                        <h6> Mrr Code: </h6>
+                        <h6 class="font-weight-normal" id="mrrCode"></h6>
+                        <h6> PO Number: </h6>
+                        <h6 class="font-weight-normal" id="poNumber"></h6>
+                        <h6> Vendor Number: </h6>
+                        <h6 class="font-weight-normal" id="vendorNumber"></h6>
+                        <h6> Item Code: </h6>
+                        <h6 class="font-weight-normal" id="itemCode"></h6>
+                        <h6> Item Description: </h6>
+                        <h6 class="font-weight-normal" id="itemDescription"></h6>
+                        <h6> Manufacturer Name: </h6>
+                        <h6 class="font-weight-normal" id="manufacturerName"></h6>
+                        <h6> Manufacturer Name: </h6>
+                        <h6 class="font-weight-normal" id="manufacturerName"></h6>
+                    </div>
                     <div class="row"><h6 class="col-md-6">Prepared By:</h6><h6 class=" font-weight-normal col-md-12" id="preparedBy"></h6></div><br>
                     <div class="row"><h6 class="col-md-6">Date:</h6><h6 class=" font-weight-normal col-md-6" id="date"></h6></div><br>
                     <div class="row"><h6 class="col-md-6">Remarks:</h6><h6 class="font-weight-normal col-md-12" id="remarks"></h6></div>
@@ -142,6 +155,9 @@
         $('body').on('click', '.viewBtn', function (){
             var id = $(this).data('id');
             var sr = $(this).data('sr');
+            var mrr = $(this).data('mrrcode');
+            var po = $(this).data('ponumber');
+            var vn = $(this).data('vendornumber');
             var itemCode = $(this).data('itemcode');
             var itemDescription = $(this).data('itemdescription');
             var manufacturerName = $(this).data('manufacturername');
@@ -150,6 +166,9 @@
             var date = $(this).data('date');
             var remarks = $(this).data('remarks');
             $('#materialEntryRecordDetail').modal('show');
+            $('#mrrCode').html(mrr);
+            $('#poNumber').html(po);
+            $('#vendorNumber').html(vn);
             $('#serialNumber').html(sr);
             $('#itemCode').html(itemCode);
             $('#itemDescription').html(itemDescription);

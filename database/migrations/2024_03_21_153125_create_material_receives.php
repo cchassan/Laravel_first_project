@@ -15,30 +15,30 @@ class CreateMaterialReceives extends Migration
     {
         Schema::create('material_receives', function (Blueprint $table) {
             $table->id('material_receive_id');
-            $table->string('serialNumber');
-            $table->string('mrrCode');
-            $table->string('poNumber');
-            $table->string('vendorNumber');
-            $table->unsignedBigInteger('material_record_id');
+            $table->string('serialNumber',255);
+            $table->string('mrrCode', 255);
+            $table->string('poNumber',255);
+            $table->string('vendorNumber',255);
+            $table->unsignedBigInteger('material_record_id',);
             $table->foreign('material_record_id')->references('material_record_id')->on('material_record_entries');
-            $table->string('unitOfMeasuring');
-            $table->string('supplier');
-            $table->string('batchNo');
+            $table->string('unitOfMeasuring',255);
+            $table->string('supplier',255);
+            $table->string('batchNo',255);
             $table->date('mfgDate');
             $table->date('expDate');
             $table->unsignedBigInteger('location_id');
             $table->foreign('location_id')->references('location_id')->on('locations');
             $table->integer('totalQuantity');
             $table->integer('numberOfPackage');
-            $table->string('deliveryChallanNumber');
+            $table->string('deliveryChallanNumber',255);
             $table->string('coaAttached');
             $table->integer('materialControlNumber');
             $table->integer('quantityReceived');
             $table->integer('quantityRejected');
             $table->integer('damagedQuantity')->nullable();
-            $table->string('preparedBy');
+            $table->string('preparedBy',255);
             $table->date('date');
-            $table->string('remarks')->nullable();
+            $table->string('remarks',500)->nullable();
             $table->timestamps();
         });
     }
