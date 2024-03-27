@@ -207,7 +207,7 @@ class MaterialReceivingFormController extends Controller
 
     public function delete ($id){
         $materialReceive = MaterialReceive::find($id);
-        dd($materialReceive);
+//        dd($materialReceive);
         if(!is_null($materialReceive)) {
             $materialReceive->delete();
         }

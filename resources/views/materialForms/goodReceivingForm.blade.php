@@ -1,5 +1,30 @@
 @extends('layouts.app')
 
+@section('css')
+    <style>
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #444;
+            line-height: 32px;
+        }
+        .select2-selection__arrow {
+            height: 36px;
+            position: absolute;
+            top: 1px;
+            right: 1px;
+            width: 20px;
+        }
+        .select2-container .select2-selection--single {
+            box-sizing: border-box;
+            cursor: pointer;
+            display: block;
+            height: 36px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+    </style>
+
+@endsection
+
 @section('content')
 
     <div id="main-content">
@@ -7,7 +32,7 @@
         <div class="block-header">
             <div class="row clearfix">
                 <div class="col-md-6 col-sm-12">
-                    <h2>Good Receiving Notes</h2>
+                    <h2>Goods Receiving Notes</h2>
                 </div>
                 <div class="col-md-6 col-sm-12 text-right">
                     <ul class="breadcrumb">
@@ -30,13 +55,20 @@
                             </ul>
                         </div>
                         <div class="body">
-                            <form method="POST" action="#" enctype="multipart/form-data">
+                            <form method="POST" action="{{route('goods.Receiving.Notes.store')}}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-3 mt-1">
-                                        <label>Serial Number</label>
-                                        <input type="text" name="serialNumber" class="form-control autocomplete"
-                                               id="name" value="{{old('serialNumber')}}" required>
+                                        <div class="form-group">
+                                            <label>Serial Number<span class="text-danger"> *</span></label>
+                                            <input type="text" name="serialNumber" class="form-control autocomplete"
+                                                   id="name" value="{{old('serialNumber')}}" >
+                                        </div>
+                                        @error('serialNumber')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-3 mt-1">
                                         <div class="form-group">
@@ -44,11 +76,23 @@
                                             <input type="text" name="grnCode" class="form-control"
                                                    value="{{old('grnCode')}}">
                                         </div>
+                                        @error('grnCode')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-3 mt-1">
-                                        <label>PO Number</label>
-                                        <input type="text" name="poNumber" class="form-control autocomplete"
-                                               id="name" value="{{old('poNumber')}}" required>
+                                        <div class="form-group">
+                                            <label>PO Number</label>
+                                            <input type="text" name="poNumber" class="form-control autocomplete"
+                                                   id="name" value="{{old('poNumber')}}" >
+                                        </div>
+                                        @error('poNumber')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-3 mt-1">
                                         <div class="form-group">
@@ -56,32 +100,50 @@
                                             <input type="text" name="vendorNumber" class="form-control"
                                                    value="{{old('vendorNumber')}}">
                                         </div>
+                                        @error('vendorNumber')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-3 mt-1">
                                         <label>Item Code</label>
-                                        <input type="text" name="itemCode" class="form-control autocomplete"
-                                               id="name" value="{{old('itemCode')}}" required>
+                                        <select class="form-control" name="itemCode" id="itemCode"  >
+                                            <option value="">Select Item Code</option>
+                                        </select>
+                                        @error('itemCode')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
                                             <label>Item Description</label>
-                                            <textarea class="form-control" name="description" id="address" rows="2"
-                                            >{{old('description')}}</textarea>
+                                            <textarea class="form-control"  id="itemDescription" rows="2" readonly
+                                            ></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-3 mt-1">
-                                        <label for="measuring">Unit of Measuring</label>
-                                        <select class="form-control" name="measuring">
-                                            <option>KG</option>
-                                            <option>Litters</option>
-                                            <option>Pieces</option>
-                                        </select>
+                                        <div class="form-group">
+                                            <label for="measuring">Unit of Measuring</label>
+                                            <select class="form-control" name="measuring">
+                                                <option>KG</option>
+                                                <option>Litters</option>
+                                                <option>Pieces</option>
+                                            </select>
+                                        </div>
+                                        @error('measuring')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
                                             <label>Manufacturer Name</label>
-                                            <input type="text" name="manufacturerName" class="form-control"
-                                                   value="{{old('manufacturerName')}}">
+                                            <input type="text" id="manufacturerName" class="form-control"
+                                                   value="" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mt-1">
@@ -90,13 +152,23 @@
                                             <input type="text" name="supplier" class="form-control"
                                                    value="{{old('supplier')}}">
                                         </div>
+                                        @error('supplier')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
                                             <label>Manufacturing Lot / Batch No.</label>
-                                            <input type="text" name="manufacturingLot" class="form-control"
-                                                   value="{{old('manufacturingLot')}}">
+                                            <input type="text" name="batchNo" class="form-control"
+                                                   value="{{old('batchNo')}}">
                                         </div>
+                                        @error('batchNo')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-3 mt-1">
                                         <div class="form-group">
@@ -104,6 +176,11 @@
                                             <input type="date" name="mfgDate" class="form-control"
                                                    value="{{old('mfgDate')}}">
                                         </div>
+                                        @error('mfgDate')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-3 mt-1">
                                         <div class="form-group">
@@ -111,37 +188,62 @@
                                             <input type="date" name="expDate" class="form-control"
                                                    value="{{old('expDate')}}">
                                         </div>
+                                        @error('expDate')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6 mt-1">
-                                        <label for="measuring">Warehouse Location</label>
-                                        <select class="form-control" name="warehouseLocation">
-                                            <option>GF Warehouse</option>
-                                            <option>FF Warehouse</option>
-                                            <option>Quarantine</option>
-                                            <option>Cold Room</option>
+                                        <label for="locationName">Warehouse Location</label>
+                                        <select class="form-control" name="locationName">
+                                            <option value="" selected>Select Location</option>
+                                            @foreach($locations as $location )
+                                                <option value="{{ $location->location_id }}">{{ $location->locationName}}</option>
+                                            @endforeach
                                         </select>
+                                        @error('locationName')
+                                        <span class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6 mt-1"></div>
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
                                             <label>Total Quantity</label>
-                                            <input type="text" name="totalQuantity" class="form-control"
+                                            <input type="number" name="totalQuantity" class="form-control"
                                                    value="{{old('totalQuantity')}}">
                                         </div>
+                                        @error('totalQuantity')
+                                        <span class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
                                             <label>Number of Container / Package</label>
-                                            <input type="text" name="package" class="form-control"
-                                                   value="{{old('package')}}">
+                                            <input type="number" name="numberOfPackage" class="form-control"
+                                                   value="{{old('numberOfPackage')}}">
                                         </div>
+                                        @error('numberOfPackage')
+                                        <span class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
                                             <label>Delivery Challan Number</label>
                                             <input type="text" name="deliveryChallanNumber" class="form-control"
-                                                   value="{{old('deliverChallanNumber')}}">
+                                                   value="{{old('deliveryChallanNumber')}}">
                                         </div>
+                                        @error('deliveryChallanNumber')
+                                        <span class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6 mt-1">
                                         <label for="coaAttached">COA Attached</label>
@@ -149,32 +251,52 @@
                                             <option>Attached</option>
                                             <option>Not Attached</option>
                                         </select>
+                                        @error('coaAttached')
+                                        <span class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
                                             <label>Material Control Number</label>
-                                            <input type="text" name="materialControlNumber" class="form-control"
+                                            <input type="number" name="materialControlNumber" class="form-control"
                                                    value="{{old('materialControlNumber')}}">
                                         </div>
+                                        @error('materialControlNumber')
+                                        <span class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
                                             <label>Quantity Received</label>
-                                            <input type="text" name="quantityReceived" class="form-control"
+                                            <input type="number" name="quantityReceived" class="form-control"
                                                    value="{{old('quantityReceived')}}">
                                         </div>
+                                        @error('quantityReceived')
+                                        <span class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
                                             <label>Quantity Rejected</label>
-                                            <input type="text" name="quantityRejected" class="form-control"
+                                            <input type="number" name="quantityRejected" class="form-control"
                                                    value="{{old('quantityRejected')}}">
                                         </div>
+                                        @error('quantityRejected')
+                                        <span class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
                                             <label>Damaged Quantity (if any)</label>
-                                            <input type="text" name="damagedQuantity" class="form-control"
+                                            <input type="number" name="damagedQuantity" class="form-control"
                                                    value="{{old('damagedQuantity')}}">
                                         </div>
                                     </div>
@@ -184,6 +306,11 @@
                                             <input type="text" name="preparedBy" class="form-control"
                                                    value="{{old('preparedBy')}}">
                                         </div>
+                                        @error('preparedBy')
+                                        <span class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
@@ -191,12 +318,17 @@
                                             <input type="date" name="date" class="form-control"
                                                    value="{{old('date')}}">
                                         </div>
+                                        @error('date')
+                                        <span class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                        @enderror
                                     </div>
                                     <div class="col-md-12 mt-1">
                                         <div class="form-group">
                                             <label>Remarks (if Any)</label>
-                                            <textarea class="form-control" name="description" id="address" rows="4"
-                                            >{{old('description')}}</textarea>
+                                            <textarea class="form-control" name="remarks" id="address" rows="4"
+                                            >{{old('remarks')}}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -220,3 +352,50 @@
 
 @endsection
 
+@push('scripts')
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#itemCode').select2({
+                placeholder: 'Select an item code',
+                minimumInputLength: 2, // Adjust as per your requirement
+                ajax: {
+                    url: "{{ route('grn.get.item.codes') }}",
+                    method: 'POST',
+                    dataType: 'json',
+                    delay: 250, // Delay in milliseconds before the request is sent
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    data: function (params) {
+                        return {
+                            query: params.term
+                        };
+                    },
+
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    id: item.material_record_id,
+                                    text: item.itemCode,
+                                    itemDescription: item.itemDescription,
+                                    manufacturer: item.manufacturerName,
+                                };
+                            })
+                        };
+                    },
+                    cache: true // Cache AJAX requests to reduce server load
+                }
+            }).on('select2:select', function (e) {
+                var itemDescription = e.params.data.itemDescription;
+                var manufacturer = e.params.data.manufacturer;
+                $('#itemDescription').val(itemDescription);
+                $('#manufacturerName').val(manufacturer);
+            });
+        });
+
+    </script>
+@endpush

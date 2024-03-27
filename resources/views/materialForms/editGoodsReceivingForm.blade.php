@@ -32,12 +32,12 @@
         <div class="block-header">
             <div class="row clearfix">
                 <div class="col-md-6 col-sm-12">
-                    <h2>Edit Material Receiving Form</h2>
+                    <h2>Edit Goods Receiving Note</h2>
                 </div>
                 <div class="col-md-6 col-sm-12 text-right">
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="icon-home"></i></a></li>
-                        <li class="breadcrumb-item active">Edit Material Receiving Form</li>
+                        <li class="breadcrumb-item active">Edit Goods Receiving Note</li>
                     </ul>
                 </div>
             </div>
@@ -48,21 +48,21 @@
 
                     <div class="card planned_task">
                         <div class="header">
-                            <h1 class="text-center">Edit Material Receiving Form</h1>
+                            <h1 class="text-center">Edit Goods Receiving Note</h1>
                             <ul class="header-dropdown dropdown dropdown-animated scale-left">
                                 <li><a href="javascript:void(0);" class="full-screen"><i
                                             class="icon-size-fullscreen"></i></a></li>
                             </ul>
                         </div>
                         <div class="body">
-                            <form method="POST" action="{{route('material.Receiving.Form.update', ['id' => $materialReceive->material_receive_id])}}" enctype="multipart/form-data">
+                            <form method="POST" action="{{route('goods.Receiving.Notes.update', ['id' => $goodsReceivingNote->goods_receiving_id])}}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-3 mt-1">
                                         <div class="form-group">
                                             <label>Serial Number<span class="text-danger"> *</span></label>
                                             <input type="text" name="serialNumber" class="form-control autocomplete"
-                                                   id="name" value="{{old('serialNumber' , $materialReceive->serialNumber)}}" >
+                                                   id="name" value="{{old('serialNumber' , $goodsReceivingNote->serialNumber)}}" >
                                         </div>
                                         @error('serialNumber')
                                         <span class="text-danger">
@@ -72,11 +72,11 @@
                                     </div>
                                     <div class="col-md-3 mt-1">
                                         <div class="form-group">
-                                            <label>MRR Code</label>
-                                            <input type="text" name="mrrCode" class="form-control"
-                                                   value="{{old('mrrCode', $materialReceive->mrrCode )}}">
+                                            <label>GRN Code</label>
+                                            <input type="text" name="grnCode" class="form-control"
+                                                   value="{{old('grnCode', $goodsReceivingNote->grnCode )}}">
                                         </div>
-                                        @error('mrrCode')
+                                        @error('grnCode')
                                         <span class="text-danger">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -86,7 +86,7 @@
                                         <div class="form-group">
                                             <label>PO Number</label>
                                             <input type="text" name="poNumber" class="form-control autocomplete"
-                                                   id="name" value="{{old('poNumber',  $materialReceive->poNumber)}}" >
+                                                   id="name" value="{{old('poNumber',  $goodsReceivingNote->poNumber)}}" >
                                         </div>
                                         @error('poNumber')
                                         <span class="text-danger">
@@ -98,7 +98,7 @@
                                         <div class="form-group">
                                             <label>Vendor Number</label>
                                             <input type="text" name="vendorNumber" class="form-control"
-                                                   value="{{old('vendorNumber',  $materialReceive->vendorNumber)}}">
+                                                   value="{{old('vendorNumber',  $goodsReceivingNote->vendorNumber)}}">
                                         </div>
                                         @error('vendorNumber')
                                         <span class="text-danger">
@@ -109,7 +109,7 @@
                                     <div class="col-md-3 mt-1">
                                         <label>Item Code</label>
                                         <select class="form-control" name="itemCode" id="itemCode"  >
-                                            <option value="{{$materialReceive->getMaterialItem->material_record_id}}">{{$materialReceive->getMaterialItem->itemCode}}</option>
+                                            <option value="{{$goodsReceivingNote->getMaterialItem->material_record_id}}">{{$goodsReceivingNote->getMaterialItem->itemCode}}</option>
                                         </select>
                                         @error('itemCode')
                                         <span class="text-danger">
@@ -130,16 +130,16 @@
                                         <div class="form-group">
                                             <label>Item Description</label>
                                             <textarea class="form-control"  id="itemDescription" rows="2" readonly
-                                            >{{$materialReceive->getMaterialItem->itemDescription}}</textarea>
+                                            >{{$goodsReceivingNote->getMaterialItem->itemDescription}}</textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-3 mt-1">
                                         <div class="form-group">
                                             <label for="measuring">Unit of Measuring</label>
                                             <select class="form-control" name="measuring">
-                                                <option value="KG" @if($materialReceive->unitOfMeasuring === 'KG') selected @endif>KG</option>
-                                                <option value="Litters" @if($materialReceive->unitOfMeasuring  === 'Litters') selected @endif>Litters</option>
-                                                <option value="Pieces" @if($materialReceive->unitOfMeasuring   === 'Pieces') selected @endif>Pieces</option>
+                                                <option value="KG" @if($goodsReceivingNote->unitOfMeasuring === 'KG') selected @endif>KG</option>
+                                                <option value="Litters" @if($goodsReceivingNote->unitOfMeasuring  === 'Litters') selected @endif>Litters</option>
+                                                <option value="Pieces" @if($goodsReceivingNote->unitOfMeasuring   === 'Pieces') selected @endif>Pieces</option>
                                             </select>
                                         </div>
                                         @error('measuring')
@@ -152,14 +152,14 @@
                                         <div class="form-group">
                                             <label>Manufacturer Name</label>
                                             <input type="text" id="manufacturerName" class="form-control"
-                                                   value="{{old('manufacturerName',  $materialReceive->getMaterialItem->manufacturerName)}}" readonly>
+                                                   value="{{old('manufacturerName',  $goodsReceivingNote->getMaterialItem->manufacturerName)}}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
                                             <label>Supplier</label>
                                             <input type="text" name="supplier" class="form-control"
-                                                   value="{{old('supplier', $materialReceive->supplier)}}">
+                                                   value="{{old('supplier', $goodsReceivingNote->supplier)}}">
                                         </div>
                                         @error('supplier')
                                         <span class="text-danger">
@@ -171,7 +171,7 @@
                                         <div class="form-group">
                                             <label>Manufacturing Lot / Batch No.</label>
                                             <input type="text" name="batchNo" class="form-control"
-                                                   value="{{old('batchNo', $materialReceive->batchNo)}}">
+                                                   value="{{old('batchNo', $goodsReceivingNote->batchNo)}}">
                                         </div>
                                         @error('batchNo')
                                         <span class="text-danger">
@@ -183,7 +183,7 @@
                                         <div class="form-group">
                                             <label>MFG Date</label>
                                             <input type="date" name="mfgDate" class="form-control"
-                                                   value="{{old('mfgDate',$materialReceive->mfgDate )}}">
+                                                   value="{{old('mfgDate',$goodsReceivingNote->mfgDate )}}">
                                         </div>
                                         @error('mfgDate')
                                         <span class="text-danger">
@@ -195,7 +195,7 @@
                                         <div class="form-group">
                                             <label>EXP Date</label>
                                             <input type="date" name="expDate" class="form-control"
-                                                   value="{{old('expDate' , $materialReceive->expDate)}}">
+                                                   value="{{old('expDate' , $goodsReceivingNote->expDate)}}">
                                         </div>
                                         @error('expDate')
                                         <span class="text-danger">
@@ -209,7 +209,7 @@
                                             <select class="form-control" name="locationName">
                                                 <option value="" @if(old('locationName') == null) selected @endif>Select Location</option>
                                                 @foreach($locations as $location)
-                                                    <option value="{{ $location->location_id }}" @if(old('locationName', $materialReceive->location_id) == $location->location_id) selected @endif>{{ $location->locationName }}</option>
+                                                    <option value="{{ $location->location_id }}" @if(old('locationName', $goodsReceivingNote->location_id) == $location->location_id) selected @endif>{{ $location->locationName }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -224,7 +224,7 @@
                                         <div class="form-group">
                                             <label>Total Quantity</label>
                                             <input type="number" name="totalQuantity" class="form-control"
-                                                   value="{{old('totalQuantity', $materialReceive->totalQuantity)}}">
+                                                   value="{{old('totalQuantity', $goodsReceivingNote->totalQuantity)}}">
                                         </div>
                                         @error('totalQuantity')
                                         <span class="text-danger">
@@ -236,7 +236,7 @@
                                         <div class="form-group">
                                             <label>Number of Container / Package</label>
                                             <input type="number" name="numberOfPackage" class="form-control"
-                                                   value="{{old('numberOfPackage', $materialReceive->numberOfPackage)}}">
+                                                   value="{{old('numberOfPackage', $goodsReceivingNote->numberOfPackage)}}">
                                         </div>
                                         @error('numberOfPackage')
                                         <span class="text-danger">
@@ -248,7 +248,7 @@
                                         <div class="form-group">
                                             <label>Delivery Challan Number</label>
                                             <input type="text" name="deliveryChallanNumber" class="form-control"
-                                                   value="{{old('deliveryChallanNumber',  $materialReceive->deliveryChallanNumber)}}">
+                                                   value="{{old('deliveryChallanNumber',  $goodsReceivingNote->deliveryChallanNumber)}}">
                                         </div>
                                         @error('deliveryChallanNumber')
                                         <span class="text-danger">
@@ -259,8 +259,8 @@
                                     <div class="col-md-6 mt-1">
                                         <label for="coaAttached">COA Attached</label>
                                         <select class="form-control" name="coaAttached">
-                                            <option value="KG" @if($materialReceive->coaAttached === 'Attached') selected @endif>Attached</option>
-                                            <option value="KG" @if($materialReceive->coaAttached === 'Not Attache') selected @endif>Not Attached</option>
+                                            <option value="KG" @if($goodsReceivingNote->coaAttached === 'Attached') selected @endif>Attached</option>
+                                            <option value="KG" @if($goodsReceivingNote->coaAttached === 'Not Attache') selected @endif>Not Attached</option>
                                         </select>
                                         @error('coaAttached')
                                         <span class="text-danger">
@@ -272,7 +272,7 @@
                                         <div class="form-group">
                                             <label>Material Control Number</label>
                                             <input type="number" name="materialControlNumber" class="form-control"
-                                                   value="{{old('materialControlNumber',  $materialReceive->materialControlNumber)}}">
+                                                   value="{{old('materialControlNumber',  $goodsReceivingNote->materialControlNumber)}}">
                                         </div>
                                         @error('materialControlNumber')
                                         <span class="text-danger">
@@ -284,7 +284,7 @@
                                         <div class="form-group">
                                             <label>Quantity Received</label>
                                             <input type="number" name="quantityReceived" class="form-control"
-                                                   value="{{old('quantityReceived',  $materialReceive->quantityReceived)}}">
+                                                   value="{{old('quantityReceived',  $goodsReceivingNote->quantityReceived)}}">
                                         </div>
                                         @error('quantityReceived')
                                         <span class="text-danger">
@@ -296,7 +296,7 @@
                                         <div class="form-group">
                                             <label>Quantity Rejected</label>
                                             <input type="number" name="quantityRejected" class="form-control"
-                                                   value="{{old('quantityRejected', $materialReceive->quantityRejected)}}">
+                                                   value="{{old('quantityRejected', $goodsReceivingNote->quantityRejected)}}">
                                         </div>
                                         @error('quantityRejected')
                                         <span class="text-danger">
@@ -308,14 +308,14 @@
                                         <div class="form-group">
                                             <label>Damaged Quantity (if any)</label>
                                             <input type="number" name="damagedQuantity" class="form-control"
-                                                   value="{{old('damagedQuantity', $materialReceive->damagedQuantity)}}">
+                                                   value="{{old('damagedQuantity', $goodsReceivingNote->damagedQuantity)}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
                                             <label>Prepared By</label>
                                             <input type="text" name="preparedBy" class="form-control"
-                                                   value="{{old('preparedBy', $materialReceive->preparedBy)}}">
+                                                   value="{{old('preparedBy', $goodsReceivingNote->preparedBy)}}">
                                         </div>
                                         @error('preparedBy')
                                         <span class="text-danger">
@@ -327,7 +327,7 @@
                                         <div class="form-group">
                                             <label>Date</label>
                                             <input type="date" name="date" class="form-control"
-                                                   value="{{old('date', $materialReceive->date)}}">
+                                                   value="{{old('date', $goodsReceivingNote->date)}}">
                                         </div>
                                         @error('date')
                                         <span class="text-danger">
@@ -339,7 +339,7 @@
                                         <div class="form-group">
                                             <label>Remarks (if Any)</label>
                                             <textarea class="form-control" name="remarks" id="address" rows="4"
-                                            >{{old('remarks', $materialReceive->remarks)}}</textarea>
+                                            >{{old('remarks', $goodsReceivingNote->remarks)}}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -372,7 +372,7 @@
             $('#itemCode').select2({
                 minimumInputLength: 2, // Adjust as per your requirement
                 ajax: {
-                    url: "{{ route('get.item.codes') }}",
+                    url: "{{ route('grn.get.item.codes') }}",
                     method: 'POST',
                     dataType: 'json',
                     delay: 250, // Delay in milliseconds before the request is sent

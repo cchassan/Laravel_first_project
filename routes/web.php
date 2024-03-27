@@ -57,5 +57,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/materialReceivingForm/delete/{id}', [MaterialReceivingFormController::class, 'delete'])->name('material.Receiving.Form.delete');
     Route::get('/materialReceivingReport', [MaterialReceivingFormController::class, 'index'])->name('material.Receiving.Report');
     Route::post('/get-item-codes', [MaterialReceivingFormController::class, 'getItemCodes'])->name('get.item.codes');
-    Route::get('/goodsReceivingNotes', [GoodReceivingNotesController::class, 'index'])->name('goods.Receiving.Notes');
+    Route::get('/goodsReceivingNotes', [GoodReceivingNotesController::class, 'create'])->name('goods.Receiving.Notes');
+    Route::post('/getItemCode', [GoodReceivingNotesController::class, 'getItemCodesGRN'])->name('grn.get.item.codes');
+    Route::post('/goodsReceivingNotes/store', [GoodReceivingNotesController::class, 'store'])->name('goods.Receiving.Notes.store');
+    Route::get('/goodsReceivingReport', [GoodReceivingNotesController::class, 'index'])->name('goods.Receiving.Report');
+    Route::get('/goodsReceivingReport/edit/{id}', [GoodReceivingNotesController::class, 'edit'])->name('goods.Receiving.Notes.edit');
+    Route::post('/goodsReceivingReport/update/{id}', [GoodReceivingNotesController::class, 'update'])->name('goods.Receiving.Notes.update');
+    Route::get('/goodsReceivingReport/delete/{id}', [GoodReceivingNotesController::class, 'delete'])->name('goods.Receiving.Notes.delete');
 });

@@ -49,6 +49,7 @@
                         <li class="{{setActive(['material.Entry.Record.Report'])}}"><a href="{{route('material.Entry.Record.Report')}}">Material Entry Record Reports</a></li>
                         @endcan
                         <li class="{{setActive(['material.Receiving.Report'])}}"><a href="{{route('material.Receiving.Report')}}">Material Receiving Reports</a></li>
+                            <li class="{{setActive(['goods.Receiving.Report'])}}"><a href="{{route('goods.Receiving.Report')}}">Goods Receiving Reports</a></li>
                     </ul>
                 </li>
 

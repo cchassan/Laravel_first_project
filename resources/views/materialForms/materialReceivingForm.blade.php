@@ -362,43 +362,6 @@
 @endsection
 
 @push('scripts')
-{{--    <script>--}}
-{{--        $(document).ready(function() {--}}
-{{--            $('#itemCode').on('input', function() {--}}
-{{--                var inputVal = $(this).val();--}}
-{{--                if (inputVal.length >= 2) { // Adjust as per your requirement--}}
-{{--                    $.ajax({--}}
-{{--                        url: "{{ route('get.item.codes') }}",--}}
-{{--                        method: 'POST',--}}
-{{--                        data: {--}}
-{{--                            query: inputVal ,--}}
-{{--                            _token: '{{ csrf_token() }}'--}}
-{{--                        },--}}
-{{--                        success: function(response) {--}}
-{{--                            var suggestionList = $('.suggestion-itemCode-list');--}}
-{{--                            suggestionList.empty();--}}
-{{--                            if (response.length > 0) {--}}
-{{--                                $.each(response, function(index, item) {--}}
-{{--                                    var dropdownItem = $('<a class="dropdown-ItemCode"  data-item-id="' + item.id + '">' + item.itemCode + '</a>');--}}
-{{--                                    dropdownItem.click(function() {--}}
-{{--                                        var itemId = $(this).data('item-id');--}}
-{{--                                        var itemCode = $(this).text();--}}
-{{--                                        $('#itemCode').val(itemCode);--}}
-{{--                                        $('#itemId').val(itemId); // Set the value of hidden input field--}}
-{{--                                    });--}}
-{{--                                    suggestionList.append(dropdownItem);--}}
-{{--                                });--}}
-{{--                                suggestionList.parent().addClass('show');--}}
-{{--                            } else {--}}
-{{--                                suggestionList.parent().removeClass('show');--}}
-{{--                            }--}}
-{{--                        }--}}
-{{--                    });--}}
-{{--                }--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
-
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
@@ -415,6 +378,12 @@
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
+                data: function (params) {
+                    return {
+                        query: params.term
+                    };
+                },
+
                 processResults: function(data) {
                     return {
                         results: $.map(data, function(item) {
