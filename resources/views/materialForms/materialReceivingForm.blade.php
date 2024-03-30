@@ -32,12 +32,12 @@
     <div class="block-header">
         <div class="row clearfix">
             <div class="col-md-6 col-sm-12">
-                <h2>Material Receiving Form</h2>
+                <h2>Material Receiving Record</h2>
             </div>
             <div class="col-md-6 col-sm-12 text-right">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item active">Material Receiving Form</li>
+                    <li class="breadcrumb-item active">Material Receiving Record</li>
                 </ul>
             </div>
         </div>
@@ -48,7 +48,7 @@
 
                 <div class="card planned_task">
                     <div class="header">
-                        <h1 class="text-center">Material Receiving Form</h1>
+                        <h1 class="text-center">Material Receiving Record</h1>
                         <ul class="header-dropdown dropdown dropdown-animated scale-left">
                             <li><a href="javascript:void(0);" class="full-screen"><i
                                         class="icon-size-fullscreen"></i></a></li>
