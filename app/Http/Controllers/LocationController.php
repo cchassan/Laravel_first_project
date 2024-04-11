@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Location;
+use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
 
 class LocationController extends Controller
@@ -22,12 +23,22 @@ class LocationController extends Controller
             return DataTables::of($locations)
                 ->addIndexColumn()
                 ->addColumn('action',  function($row) {
+                    if(Gate::allows('location-delete')){
                     $deleteButton = '<button class="btn btn-sm btn-danger delBtn" data-id="'.$row->location_id.'"
                                                 data-toggle="tooltip" title="delete">
                                                 <i class="fa fa-times"></i>
                                             </button>';
-                    return '<a href="javascript:void(0)" class="btn btn-primary editBtn" data-id="'.$row->location_id.'" style="background: #0b2e13; border: none"> <i class="fa fa-pencil primary"></i></a> &nbsp;'
-                        .$deleteButton;
+                        }
+                    else {
+                        $deleteButton = '';
+                    }
+                    if(Gate::allows('location-edit')) {
+                        $viewBtn = '<a href="javascript:void(0)" class="btn btn-primary editBtn" data-id="' . $row->location_id . '" style="background: #0b2e13; border: none"> <i class="fa fa-pencil primary"></i></a> &nbsp;';
+                    }
+                    else {
+                        $viewBtn ='';
+                    }
+                    return $viewBtn .$deleteButton;
                 })
                 ->rawColumns(['action', 'id'])->make(true);
         }

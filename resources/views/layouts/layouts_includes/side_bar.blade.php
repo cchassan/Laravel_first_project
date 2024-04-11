@@ -1,6 +1,6 @@
 <div id="left-sidebar" class="sidebar">
     <div class="navbar-brand">
-        <a href="{{route('home')}}"><img src="{{asset('assets/images/image-gallery/GulfConnect-Pro-Logo.png')}}" width="150px" alt="HexaBit Logo" class="img-fluid "></a>
+        <a href="{{route('home')}}"><img src="{{asset('assets/images/image-gallery/GulfConnect-Pro-Logo.png')}}" width="150px" alt="Gulf Biotech Logo" class="img-fluid "></a>
         <button type="button" class="btn-toggle-offcanvas btn btn-sm btn-default float-right"><i class="lnr lnr-menu fa fa-chevron-circle-left"></i></button>
     </div>
     <div class="sidebar-scroll">
@@ -26,7 +26,7 @@
         <nav id="left-sidebar-nav" class="sidebar-nav">
             <ul id="main-menu" class="metismenu">
                 <li class="{{setActive(['home'])}}"><a href="{{route('home')}}"><i class="icon-home"></i><span>Dashboard</span></a></li>
-                @can('location-create')
+                @can('location-list')
                 <li class="{{setActive(['location'])}}"><a href="{{route('location')}}"><i class="icon-globe"></i><span>Locations</span></a></li>
                 @endcan
 
@@ -34,22 +34,30 @@
                     <a href="#WarehouseForm" class="has-arrow"><i class="icon-equalizer"></i><span>Warehouse Form</span></a>
                     <ul>
                         @can('material-record-Entry-create')
-                        <li class="{{setActive(['material.Entry.Record'])}}"><a href="{{route('material.Entry.Record')}}">Material Entry Record</a></li>
+                            <li class="{{setActive(['material.Entry.Record'])}}"><a href="{{route('material.Entry.Record')}}">Material Entry Record</a></li>
                         @endcan
-                        <li class="{{setActive(['material.Receiving.Form'])}}"><a href="{{route('material.Receiving.Form')}}">Material Receiving Form</a></li>
-                        <li class="{{setActive(['goods.Receiving.Notes'])}}"><a href="{{route('goods.Receiving.Notes')}}">Goods Receiving Notes</a></li>
+                        @can('material-receiving-create')
+                            <li class="{{setActive(['material.Receiving.Form'])}}"><a href="{{route('material.Receiving.Form')}}">Material Receiving Form</a></li>
+                        @endcan
+                        @can('goods-receiving-create')
+                            <li class="{{setActive(['goods.Receiving.Notes'])}}"><a href="{{route('goods.Receiving.Notes')}}">Goods Receiving Notes</a></li>
+                        @endcan
                         <li><a href="#">Bin Card</a></li>
                     </ul>
                 </li>
 
-                <li class="{{setActive(['material.Entry.Record.Report'])}}">
+                <li class="{{setActive(['material.Entry.Record.Report','material.Receiving.Report','goods.Receiving.Report'])}}">
                     <a href="#Reports" class="has-arrow"><i class="icon-equalizer"></i><span>Reports</span></a>
                     <ul>
                         @can('material-record-Entry-list')
-                        <li class="{{setActive(['material.Entry.Record.Report'])}}"><a href="{{route('material.Entry.Record.Report')}}">Material Entry Record Reports</a></li>
+                            <li class="{{setActive(['material.Entry.Record.Report'])}}"><a href="{{route('material.Entry.Record.Report')}}">Material Entry Record Reports</a></li>
                         @endcan
-                        <li class="{{setActive(['material.Receiving.Report'])}}"><a href="{{route('material.Receiving.Report')}}">Material Receiving Reports</a></li>
+                        @can('material-receiving-list')
+                                <li class="{{setActive(['material.Receiving.Report'])}}"><a href="{{route('material.Receiving.Report')}}">Material Receiving Reports</a></li>
+                        @endcan
+                        @can('goods-receiving-list')
                             <li class="{{setActive(['goods.Receiving.Report'])}}"><a href="{{route('goods.Receiving.Report')}}">Goods Receiving Reports</a></li>
+                        @endcan
                     </ul>
                 </li>
 

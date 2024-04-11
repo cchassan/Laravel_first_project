@@ -44,6 +44,10 @@
                             <label>{{ Form::checkbox('permission[]', $value->name, false, array('class' => 'name')) }}
                                 {{ $value->name }}</label>
                             <br/>
+{{--                            <label>--}}
+{{--                                <input type="checkbox" name="permission[]" value="{{ $value->name }}" class="name">--}}
+{{--                                {{ $value->name }}--}}
+{{--                            </label><br>--}}
                         @endforeach
                     </div>
                 </div>

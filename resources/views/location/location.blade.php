@@ -17,7 +17,9 @@
                         <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="icon-home"></i></a></li>
                         <li class="breadcrumb-item active">Location</li>
                     </ul>
+                    @can('location-create')
                     <button class="btn btn-sm btn-primary" style="background: #446433; border: #0b2e13;" data-toggle="modal" data-target="#modalAddLocation" id="addNewLocation">Add Location</button>
+                    @endcan
                 </div>
             </div>
             <!-- Vertically centered -->
@@ -73,7 +75,9 @@
                                     <tr>
                                         <th scope="col">Sr. #</th>
                                         <th scope="col">Name</th>
+                                        @if (Gate::check('location-edit') || Gate::check('location-delete'))
                                         <th scope="col">Action</th>
+                                        @endif
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -215,7 +219,9 @@
                 columns: [
                     {data : 'location_id', name:'action', orderable: false,searchable: false},
                     {data : 'locationName'},
-                    {data: 'action', name: 'action', orderable: false, searchable: false},
+                        @if (Gate::check('location-edit') || Gate::check('location-delete'))
+                            {data: 'action', name: 'action', orderable: false, searchable: false},
+                        @endif
                 ]
             });
         }

@@ -12,7 +12,13 @@ use Yajra\DataTables\Facades\DataTables;
 
 class GoodReceivingNotesController extends Controller
 {
-
+    function __construct()
+    {
+        $this->middleware('permission:goods-receiving-list|goods-receiving-create|goods-receiving-edit|goods-receiving-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:goods-receiving-create', ['only' => ['create','store']]);
+        $this->middleware('permission:goods-receiving-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:goods-receiving-delete', ['only' => ['destroy']]);
+    }
     public function index(Request $request){
         $goodsReceivingNote = GoodsReceivingNote::with(['getMaterialItem', 'getWarehouseLocation']) ->get();
 
@@ -29,13 +35,13 @@ class GoodReceivingNotesController extends Controller
                     $deleteButton = '';
                     $viewButton = '';
                     $editButton = '';
-                    if (Gate::allows('material-record-Entry-delete')) {
+                    if (Gate::allows('goods-receiving-delete')) {
                         $deleteButton = '<button onclick="confirmDelete(\'link\', 0, \''.route('goods.Receiving.Notes.delete', $row->goods_receiving_id).'\')"" class="btn btn-sm btn-danger delBtn" data-id="' . $row->goods_receiving_id . '"
                                                 data-toggle="tooltip" title="delete">
                                                 <i class="fa fa-times"></i>
                                             </button>';
                     }
-                    if (Gate::allows('material-record-Entry-list')) {
+                    if (Gate::allows('goods-receiving-list')) {
                         $viewButton = '<button class="btn btn-sm btn-primary viewBtn" data-id="' . $row->goods_receiving_report . '" data-sr="' . $row->serialNumber . '"
                                            data-grncode="'.$row->grnCode .'" data-ponumber="'.$row->poNumber .'" data-vendornumber="'.$row->vendorNumber .'"
                                            data-itemcode="' . $row->getMaterialItem->itemCode . '" data-itemdescription="' . $row->getMaterialItem->itemDescription . '"
@@ -46,10 +52,10 @@ class GoodReceivingNotesController extends Controller
                                             </button>';
                     }
 
-                    if (Gate::allows('material-record-Entry-edit')) {
+                    if (Gate::allows('goods-receiving-edit')) {
                         $editButton = '<a href="' . route("goods.Receiving.Notes.edit", $row->goods_receiving_id) . '" class="btn btn-primary editBtn" data-id="'.$row->goods_receiving_id.'" style="background: #0b2e13; border: none"> <i class="fa fa-pencil primary"></i></a>';
                     }
-                    return $editButton . ' '.$deleteButton;
+                    return $viewButton .' '.$editButton . ' '.$deleteButton;
                 })
                 ->rawColumns(['action', 'id', 'material_item', 'warehouse_location'])->make(true);
         }

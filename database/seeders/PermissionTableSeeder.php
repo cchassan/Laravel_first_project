@@ -31,6 +31,14 @@ class PermissionTableSeeder extends Seeder
             'material-record-Entry-create',
             'material-record-Entry-edit',
             'material-record-Entry-delete',
+            'material-receiving-list',
+            'material-receiving-create',
+            'material-receiving-edit',
+            'material-receiving-delete',
+            'goods-receiving-list',
+            'goods-receiving-create',
+            'goods-receiving-edit',
+            'goods-receiving-delete',
         ];
 
         foreach ($permissions as $permission) {

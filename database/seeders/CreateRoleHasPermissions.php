@@ -79,6 +79,39 @@ class CreateRoleHasPermissions extends Seeder
                 'permission_id' => 16,
                 'role_id' => 1,
             ],
+
+            [
+                'permission_id' => 17,
+                'role_id' => 1,
+            ],
+            [
+                'permission_id' => 18,
+                'role_id' => 1,
+            ],
+            [
+                'permission_id' => 19,
+                'role_id' => 1,
+            ],
+            [
+                'permission_id' => 20,
+                'role_id' => 1,
+            ],
+            [
+                'permission_id' => 21,
+                'role_id' => 1,
+            ],
+            [
+                'permission_id' => 22,
+                'role_id' => 1,
+            ],
+            [
+                'permission_id' => 23,
+                'role_id' => 1,
+            ],
+            [
+                'permission_id' => 24,
+                'role_id' => 1,
+            ],
         ]);
     }
 }

@@ -13,7 +13,7 @@
                         <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="icon-home"></i></a></li>
                         <li class="breadcrumb-item active">Material Receiving Report</li>
                     </ul>
-                    @can('material-record-Entry-create')
+                    @can('material-receiving-create')
                         <a href="{{route('material.Receiving.Form')}}"> <button class="btn btn-sm btn-primary" style="background: #446433; border: #0b2e13;">Create Material Receive Report</button></a>
                     @endcan
                 </div>
@@ -41,16 +41,9 @@
                                         <th scope="col">PO Number</th>
                                         <th scope="col">Vendor Number</th>
                                         <th scope="col">Item Code</th>
-                                        <th scope="col">Unit</th>
-                                        <th scope="col">Supplier</th>
-                                        <th scope="col">Batch No.</th>
-                                        <th scope="col">MFG Date</th>
-                                        <th scope="col">EXP Date</th>
                                         <th scope="col">Warehouse</th>
                                         <th scope="col">Total Quantity</th>
                                         <th scope="col">No. of Package</th>
-                                        <th scope="col">Delivery Challan Number</th>
-                                        <th scope="col">COA Attached</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                     </thead>
@@ -134,19 +127,12 @@
                         data : 'material_item',
                         name: 'Item Code'
                     },
-                    {data : 'unitOfMeasuring'},
-                    {data : 'supplier'},
-                    {data : 'batchNo'},
-                    {data : 'mfgDate'},
-                    {data : 'expDate'},
                     {
                         data : 'warehouse_location',
                         name: 'Warehouse'
                     },
                     {data : 'totalQuantity'},
                     {data : 'numberOfPackage'},
-                    {data : 'deliveryChallanNumber'},
-                    {data : 'coaAttached'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ]
             });
