@@ -10,6 +10,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MaterialReceivingFormController;
 use App\Http\Controllers\GoodReceivingNotesController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RouteAdministrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,5 +65,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/goodsReceivingReport', [GoodReceivingNotesController::class, 'index'])->name('goods.Receiving.Report');
     Route::get('/goodsReceivingReport/edit/{id}', [GoodReceivingNotesController::class, 'edit'])->name('goods.Receiving.Notes.edit');
     Route::post('/goodsReceivingReport/update/{id}', [GoodReceivingNotesController::class, 'update'])->name('goods.Receiving.Notes.update');
-    Route::get('/goodsReceivingReport/delete/{id}', [GoodReceivingNotesController::class, 'delete'])->name('goods.Receiving.Notes.delete');
+    Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
+    Route::get('/routeAdministration', [RouteAdministrationController::class, 'index'])->name('routeAdministration');
+    Route::post('/routeAdministration/store', [RouteAdministrationController::class, 'store'])->name('routeAdministration.store');
+    Route::get('/routeAdministration/{id}/edit', [RouteAdministrationController::class, 'edit'])->name('routeAdministration.edit');
+    Route::get('/routeAdministration/{id}/delete', [RouteAdministrationController::class, 'destroy'])->name('routeAdministration.destroy');
 });

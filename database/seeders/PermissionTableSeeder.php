@@ -39,6 +39,10 @@ class PermissionTableSeeder extends Seeder
             'goods-receiving-create',
             'goods-receiving-edit',
             'goods-receiving-delete',
+            'routeAdministration-list',
+            'routeAdministration-create',
+            'routeAdministration-edit',
+            'routeAdministration-delete',
         ];
 
         foreach ($permissions as $permission) {

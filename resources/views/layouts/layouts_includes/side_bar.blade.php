@@ -29,9 +29,9 @@
                 @can('location-list')
                 <li class="{{setActive(['location'])}}"><a href="{{route('location')}}"><i class="icon-globe"></i><span>Locations</span></a></li>
                 @endcan
-
+                @if(Gate::check('material-record-Entry-create') || Gate::check('material-receiving-create') || Gate::check('goods-receiving-create') )
                 <li class="{{setActive(['material.Entry.Record', 'material.Receiving.Form', 'goods.Receiving.Notes'])}}">
-                    <a href="#WarehouseForm" class="has-arrow"><i class="icon-equalizer"></i><span>Warehouse Form</span></a>
+                    <a href="#WarehouseForm" class="has-arrow"><i class="icon-equalizer"></i><span>Warehouse</span></a>
                     <ul>
                         @can('material-record-Entry-create')
                             <li class="{{setActive(['material.Entry.Record'])}}"><a href="{{route('material.Entry.Record')}}">Material Entry Record</a></li>
@@ -45,6 +45,18 @@
                         <li><a href="#">Bin Card</a></li>
                     </ul>
                 </li>
+                @endif
+                @can('routeAdministration-list')
+                    <li class="{{setActive(['routeAdministration'])}}"><a href="{{route('routeAdministration')}}"><i class=""></i><span>Route Administration</span></a></li>
+                @endcan
+                <li class="">
+                        <a href="#ProductionForm" class="has-arrow"><i class="fas fa-box"></i><span>Production</span></a>
+                        <ul>
+
+                                <li class="{{setActive([''])}}"><a href="{{route('product.create')}}">Add Product</a></li>
+
+                        </ul>
+                    </li>
 
                 <li class="{{setActive(['material.Entry.Record.Report','material.Receiving.Report','goods.Receiving.Report'])}}">
                     <a href="#Reports" class="has-arrow"><i class="icon-equalizer"></i><span>Reports</span></a>
