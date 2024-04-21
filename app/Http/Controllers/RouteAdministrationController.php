@@ -46,7 +46,8 @@ class RouteAdministrationController extends Controller
         return view('routeAdministration.routeAdministration');
     }
 
-    public function store(Request $request){
+    public function store(Request $request): \Illuminate\Http\JsonResponse
+    {
         if($request->routeAdministrationId != null) {
 
             $routeAdministration = RouteAdministration::find($request->routeAdministrationId);

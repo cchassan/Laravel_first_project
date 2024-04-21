@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SecondaryPackagingFormatController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -65,9 +66,21 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/goodsReceivingReport', [GoodReceivingNotesController::class, 'index'])->name('goods.Receiving.Report');
     Route::get('/goodsReceivingReport/edit/{id}', [GoodReceivingNotesController::class, 'edit'])->name('goods.Receiving.Notes.edit');
     Route::post('/goodsReceivingReport/update/{id}', [GoodReceivingNotesController::class, 'update'])->name('goods.Receiving.Notes.update');
+    Route::get('/product', [ProductController::class, 'index'])->name('product.Report');
     Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
+    Route::post('/product/store', [ProductController::class, 'store'])->name('product.store');
+    Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
+    Route::post('/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
+    Route::get('/product/delete/{id}', [ProductController::class, 'delete'])->name('product.delete');
+    Route::post('/get-route-administration', [ProductController::class, 'getRouteAdministration'])->name('get.route.administration');
+    Route::post('/get-secondary-packaging-format', [ProductController::class, 'getSecondaryPackagingFormat'])->name('get.secondary.packaging.format');
     Route::get('/routeAdministration', [RouteAdministrationController::class, 'index'])->name('routeAdministration');
     Route::post('/routeAdministration/store', [RouteAdministrationController::class, 'store'])->name('routeAdministration.store');
     Route::get('/routeAdministration/{id}/edit', [RouteAdministrationController::class, 'edit'])->name('routeAdministration.edit');
     Route::get('/routeAdministration/{id}/delete', [RouteAdministrationController::class, 'destroy'])->name('routeAdministration.destroy');
+    Route::get('/secondaryPackagingFormat', [SecondaryPackagingFormatController::class, 'index'])->name('secondaryPackagingFormat');
+    Route::post('/secondaryPackagingFormat/store', [SecondaryPackagingFormatController::class, 'store'])->name('secondaryPackagingFormat.store');
+    Route::get('/secondaryPackagingFormat/{id}/edit', [SecondaryPackagingFormatController::class, 'edit'])->name('secondaryPackagingFormat.edit');
+    Route::get('/secondaryPackagingFormat/{id}/delete', [SecondaryPackagingFormatController::class, 'destroy'])->name('secondaryPackagingFormat.destroy');
+
 });

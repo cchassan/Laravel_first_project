@@ -49,6 +49,9 @@
                 @can('routeAdministration-list')
                     <li class="{{setActive(['routeAdministration'])}}"><a href="{{route('routeAdministration')}}"><i class=""></i><span>Route Administration</span></a></li>
                 @endcan
+                @can('secondaryPackagingFormat-list')
+                    <li class="{{setActive(['secondaryPackagingFormat'])}}"><a href="{{route('secondaryPackagingFormat')}}"><i class=""></i><span>Packaging Format</span></a></li>
+                @endcan
                 <li class="">
                         <a href="#ProductionForm" class="has-arrow"><i class="fas fa-box"></i><span>Production</span></a>
                         <ul>
@@ -58,7 +61,7 @@
                         </ul>
                     </li>
 
-                <li class="{{setActive(['material.Entry.Record.Report','material.Receiving.Report','goods.Receiving.Report'])}}">
+                <li class="{{setActive(['material.Entry.Record.Report','material.Receiving.Report','goods.Receiving.Report' ,'product.Report'])}}">
                     <a href="#Reports" class="has-arrow"><i class="icon-equalizer"></i><span>Reports</span></a>
                     <ul>
                         @can('material-record-Entry-list')
@@ -69,6 +72,9 @@
                         @endcan
                         @can('goods-receiving-list')
                             <li class="{{setActive(['goods.Receiving.Report'])}}"><a href="{{route('goods.Receiving.Report')}}">Goods Receiving Reports</a></li>
+                        @endcan
+                        @can('product-list')
+                            <li class="{{setActive(['product.Report'])}}"><a href="{{route('product.Report')}}">Product Reports</a></li>
                         @endcan
                     </ul>
                 </li>
