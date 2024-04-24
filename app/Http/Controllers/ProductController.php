@@ -134,7 +134,7 @@ class ProductController extends Controller
         else {
             $data = compact(['product']);
         }
-        return view('materialForms.editProduct')->with($data);
+        return view('products.editProduct')->with($data);
     }
 
 
