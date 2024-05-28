@@ -12,6 +12,7 @@ use App\Http\Controllers\MaterialReceivingFormController;
 use App\Http\Controllers\GoodReceivingNotesController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductRecipeController;
 use App\Http\Controllers\RouteAdministrationController;
 
 /*
@@ -72,6 +73,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
     Route::post('/product/update/{id}', [ProductController::class, 'update'])->name('product.update');
     Route::get('/product/delete/{id}', [ProductController::class, 'delete'])->name('product.delete');
+    Route::get('/productRecipe/create', [ProductRecipeController::class, 'create'])->name('productRecipe.create');
+    Route::post('/get-product-codes', [ProductRecipeController::class, 'getProductCodes'])->name('get.product.codes');
+    Route::post('/get-item-codes-recipe', [ProductRecipeController::class, 'getItemCodesRecipe'])->name('get.item.codes.recipe');
+    Route::post('/productRecipe/store', [ProductRecipeController::class, 'store'])->name('productRecipe.store');
     Route::post('/get-route-administration', [ProductController::class, 'getRouteAdministration'])->name('get.route.administration');
     Route::post('/get-secondary-packaging-format', [ProductController::class, 'getSecondaryPackagingFormat'])->name('get.secondary.packaging.format');
     Route::get('/routeAdministration', [RouteAdministrationController::class, 'index'])->name('routeAdministration');

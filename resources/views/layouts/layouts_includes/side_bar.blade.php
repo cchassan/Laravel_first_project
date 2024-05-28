@@ -52,11 +52,12 @@
                 @can('secondaryPackagingFormat-list')
                     <li class="{{setActive(['secondaryPackagingFormat'])}}"><a href="{{route('secondaryPackagingFormat')}}"><i class=""></i><span>Packaging Format</span></a></li>
                 @endcan
-                <li class="">
+                <li class="{{setActive(['product.create', 'productRecipe.create'])}}">
                         <a href="#ProductionForm" class="has-arrow"><i class="fas fa-box"></i><span>Production</span></a>
                         <ul>
 
-                                <li class="{{setActive([''])}}"><a href="{{route('product.create')}}">Add Product</a></li>
+                                <li class="{{setActive(['product.create'])}}"><a href="{{route('product.create')}}">Add Product</a></li>
+                                <li class="{{setActive(['productRecipe.create'])}}"><a href="{{route('productRecipe.create')}}">Add Product Recipe</a></li>
 
                         </ul>
                     </li>

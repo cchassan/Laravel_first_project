@@ -177,7 +177,7 @@
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
                                             <label>Product Added by <span class="text-danger">*</span></label>
-                                            <input type="text" name="addedBy" class="form-control"
+                                            <input type="text" name="addedBy" class="form-control" readonly
                                                    value="{{Auth::user()->name}}" required>
                                         </div>
                                         @error('addedBy')
