@@ -77,6 +77,7 @@
                         @can('product-list')
                             <li class="{{setActive(['product.Report'])}}"><a href="{{route('product.Report')}}">Product Reports</a></li>
                         @endcan
+                            <li class="{{setActive(['product.Recipe.Report'])}}"><a href="{{route('product.Recipe.Report')}}">Product Recipe Reports</a></li>
                     </ul>
                 </li>
 

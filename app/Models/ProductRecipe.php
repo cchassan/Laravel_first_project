@@ -24,7 +24,11 @@ class ProductRecipe extends Model
     }
 
     function getProductRecipeItems(){
-        return $this->belongsTo('App\Models\ProductRecipeItem', 'recipe_item_id');
+        return $this->hasMany('App\Models\ProductRecipeItem', 'product_recipe_id');
+    }
+
+    function getMaterialItem(){
+        return $this->belongsTo('App\Models\MaterialRecordEntry', 'material_record_id');
     }
 
 }

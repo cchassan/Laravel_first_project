@@ -77,6 +77,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/get-product-codes', [ProductRecipeController::class, 'getProductCodes'])->name('get.product.codes');
     Route::post('/get-item-codes-recipe', [ProductRecipeController::class, 'getItemCodesRecipe'])->name('get.item.codes.recipe');
     Route::post('/productRecipe/store', [ProductRecipeController::class, 'store'])->name('productRecipe.store');
+    Route::get('/productRecipe/report', [ProductRecipeController::class, 'index'])->name('product.Recipe.Report');
+    Route::get('/productRecipe/delete/{id}', [ProductRecipeController::class, 'delete'])->name('product.Recipe.delete');
+    Route::get('/productRecipe/edit/{id}', [ProductRecipeController::class, 'edit'])->name('product.Recipe.edit');
     Route::post('/get-route-administration', [ProductController::class, 'getRouteAdministration'])->name('get.route.administration');
     Route::post('/get-secondary-packaging-format', [ProductController::class, 'getSecondaryPackagingFormat'])->name('get.secondary.packaging.format');
     Route::get('/routeAdministration', [RouteAdministrationController::class, 'index'])->name('routeAdministration');
