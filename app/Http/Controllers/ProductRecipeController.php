@@ -41,7 +41,7 @@ class ProductRecipeController extends Controller
         $request->validate(
             [
                 'serialNumber' => ['required', 'string', 'max:255'],
-                'productRecipeCode' => ['required', 'string', 'max:255'],
+                'productRecipeCode' => ['required', 'string', 'max:255', 'unique:product_recipes,product_recipe_code'],
                 'productCode' => ['required', 'string'],
                 'preparedBy' => ['required', 'string'],
             ]
@@ -124,5 +124,49 @@ class ProductRecipeController extends Controller
         }
         return view('products.product_recipe_edit')->with($data);
     }
+
+    public function update(Request $request, $id){
+        $productRecipe = ProductRecipe::with(['getProduct', 'getProductRecipeItems', 'getMaterialItem']) ->find($id);
+
+
+        $request->validate(
+            [
+                'serialNumber' => ['required', 'string', 'max:255'],
+                'productRecipeCode' => 'required|string|unique:product_recipes,product_recipe_code,' . $productRecipe->product_recipe_id .',product_recipe_id',
+                'productCode' => ['required', 'string'],
+                'preparedBy' => ['required', 'string'],
+            ]
+        );
+//        dd($request->toArray());
+
+        // Delete the existing product recipe items
+        ProductRecipeItem::where('product_recipe_id', $productRecipe->product_recipe_id)->delete();
+
+        $productRecipe->serialNumber = $request->serialNumber;
+        $productRecipe->product_recipe_code = $request->productRecipeCode;
+        $productRecipe->product_id = $request->productCode;
+        $productRecipe->preparedBy = $request->preparedBy;
+        $productRecipe->update();
+
+        // You may need to add logic to re-create the product recipe items if necessary
+        // For example, you can loop through the request data to insert new items
+        foreach ($request->materialCode as $index => $material) {
+            $record = new ProductRecipeItem();
+            $record->product_recipe_id = $productRecipe->product_recipe_id;
+            $record->material_record_id = $material;
+            $record->materialType = $request->materialType[$index];
+            $record->quantity = $request->quantity[$index];
+            $record->unit_of_measuring = $request->measuring[$index];
+            $record->save();
+        }
+
+        $message = array(
+            'message' => "Product Recipe Form Updated Successfully.",
+            'type' => "success",
+        );
+        return redirect()->route('product.Recipe.Report')->with($message);
+
+    }
+
 
 }

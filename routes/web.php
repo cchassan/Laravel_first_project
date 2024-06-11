@@ -80,6 +80,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/productRecipe/report', [ProductRecipeController::class, 'index'])->name('product.Recipe.Report');
     Route::get('/productRecipe/delete/{id}', [ProductRecipeController::class, 'delete'])->name('product.Recipe.delete');
     Route::get('/productRecipe/edit/{id}', [ProductRecipeController::class, 'edit'])->name('product.Recipe.edit');
+    Route::post('/productRecipe/update/{id}', [ProductRecipeController::class, 'update'])->name('product.Recipe.update');
     Route::post('/get-route-administration', [ProductController::class, 'getRouteAdministration'])->name('get.route.administration');
     Route::post('/get-secondary-packaging-format', [ProductController::class, 'getSecondaryPackagingFormat'])->name('get.secondary.packaging.format');
     Route::get('/routeAdministration', [RouteAdministrationController::class, 'index'])->name('routeAdministration');
