@@ -21,9 +21,8 @@
                 <div class="col-lg-4 col-md-12">
                     <div class="card profile-header">
                         <div class="body text-center">
-                            <div class="profile-image mb-3">
-                                <img src="{{asset('assets/images/avatar.jpg')}}"
-                                                                 class="rounded-circle" style="width: 200px; height: 200px;" alt="">
+                            <div class="profile-image mb-3 ">
+                                <img src="{{ Auth::user()->user_image ? asset(Auth::user()->user_image) : asset('assets/images/avatar.jpg') }}" class="rounded-circle border border-success" style="width: 200px; height: 200px;" alt="">
                             </div>
                             <div>
                                 <h4 class="mb-0"><strong>{{Auth::user()->name}}</strong></h4>
@@ -82,43 +81,32 @@
                                         <div class="row">
                                             <div class="col-lg-6 col-md-12">
                                                 <div class="form-group">
-                                                    <label for="name" >User Name <span class="text-danger">*</span></label>
-                                                    <input type="text" name="name"
-                                                           value="{{Auth::user()->name}}" class="form-control"
-                                                           placeholder="Nome di battesimo">
+                                                    <label for="name">User Name <span class="text-danger">*</span></label>
+                                                    <input type="text" name="name" value="{{Auth::user()->name}}" class="form-control" placeholder="Nome di battesimo">
                                                     @error('name')
-                                                        <span class="text-danger">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
+                                                    <span class="text-danger"><strong>{{ $message }}</strong></span>
                                                     @enderror
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-12">
                                                 <div class="form-group">
-                                                    <label for="email" >Email</label>
-                                                    <input type="text" name="email"
-                                                           value="{{Auth::user()->email}}" class="form-control"
-                                                           placeholder="Email" readonly>
+                                                    <label for="email">Email</label>
+                                                    <input type="text" name="email" value="{{Auth::user()->email}}" class="form-control" placeholder="Email" readonly>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group">
-                                                    <label for="phone" >Contact No.</label>
+                                                    <label for="phone">Contact No.</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i
-                                                                        class="fa fa-phone"></i></span>
+                                                            <span class="input-group-text"><i class="fa fa-phone"></i></span>
                                                         </div>
-                                                        <input type="text" name="phone"
-                                                               value="{{Auth::user()->phone ?? ''}}" class="form-control"
-                                                               placeholder="03023434343">
+                                                        <input type="text" name="phone" value="{{Auth::user()->phone ?? ''}}" class="form-control" placeholder="03023434343">
                                                     </div>
                                                     @error('phone')
-                                                    <span class="text-danger">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
+                                                    <span class="text-danger"><strong>{{ $message }}</strong></span>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -129,33 +117,32 @@
                                                     <label>Address:</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i
-                                                                        class="fa fa-address-card"></i></span>
+                                                            <span class="input-group-text"><i class="fa fa-address-card"></i></span>
                                                         </div>
-                                                        <textarea class="form-control" name="address" id="address" rows="4"
-                                                        >{{old('address', Auth::user()->address)}}</textarea>
+                                                        <textarea class="form-control" name="address" id="address" rows="4">{{old('address', Auth::user()->address)}}</textarea>
                                                     </div>
                                                     @error('address')
-                                                    <span class="text-danger">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
+                                                    <span class="text-danger"><strong>{{ $message }}</strong></span>
                                                     @enderror
                                                 </div>
                                             </div>
                                         </div>
-{{--                                        <div class="row">--}}
-{{--                                            <div class="col-lg-6 col-md-12">--}}
-{{--                                                <div class="form-group">--}}
-{{--                                                    <label>User image--}}
-{{--                                                        :</label>--}}
-{{--                                                    <input type="file" id="dropify-event-profile" name="user_image" data-default-file="">--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-12">
+                                                <div class="form-group">
+                                                    <label>User Image:</label>
+                                                    <input type="file" id="dropify-event-profile" name="user_image" data-default-file="">
+                                                    @error('user_image')
+                                                    <span class="text-danger"><strong>{{ $message }}</strong></span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="text-right">
                                             <button type="submit" class="btn btn-primary" style="background: #446433; border: #0b2e13">Update</button>
                                         </div>
                                     </form>
+
                                 </div>
                             </div>
                         </div>
@@ -222,4 +209,8 @@
 @push('script')
     <script src="{{asset('vendor/dropify/js/dropify.min.js')}}"></script>
     <script src="{{asset('js/pages/forms/dropify.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#dropify-event-profile').dropify();
+        });
 @endpush

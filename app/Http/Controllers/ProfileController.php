@@ -20,8 +20,16 @@ class ProfileController extends Controller
                 'name' => ['required', 'string', 'max:255'],
                 'phone' => ['numeric', 'min:10', 'nullable'],
                 'address' => ['string', 'max:255', 'nullable'],
+                'user_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]
         );
+        if ($request->hasFile('user_image')) {
+            $image = $request->file('user_image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/users');
+            $image->move($destinationPath, $name);
+            $user->user_image = '/uploads/users/'.$name;
+        }
         $user->name = $request->name;
         $user->phone = $request->phone;
         $user->address = $request->address;

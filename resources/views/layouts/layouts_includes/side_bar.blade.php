@@ -6,7 +6,7 @@
     <div class="sidebar-scroll">
         <div class="user-account">
             <div class="user_div">
-                <img src="{{asset('assets/images/avatar.jpg')}}" class="user-photo" alt="User Profile Picture">
+                <img src="{{Auth::user()->user_image}}" class="user-photo" alt="User Profile Picture">
             </div>
             <div class="dropdown">
                 <span>Welcome,</span>
