@@ -13,7 +13,7 @@
                         <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="icon-home"></i></a></li>
                         <li class="breadcrumb-item active">Products Recipe Report</li>
                     </ul>
-                    @can('product-create')
+                    @can('product-recipe-create')
                         <a href="{{route('productRecipe.create')}}"> <button class="btn btn-sm btn-primary" style="background: #446433; border: #0b2e13;">Create Product Recipe</button></a>
                     @endcan
                 </div>

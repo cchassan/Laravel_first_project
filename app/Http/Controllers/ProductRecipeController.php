@@ -85,12 +85,12 @@ class ProductRecipeController extends Controller
                     $deleteButton = '';
                     $viewButton = '';
                     $editButton = '';
-//                    if (Gate::allows('material-receiving-delete')) {
+                    if (Gate::allows('product-recipe-delete')) {
                         $deleteButton = '<button onclick="confirmDelete(\'link\', 0, \''.route('product.Recipe.delete', $row->product_recipe_id).'\')"" class="btn btn-sm btn-danger delBtn" data-id="' . $row->id . '"
                                                 data-toggle="tooltip" title="delete">
                                                 <i class="fa fa-times"></i>
                                             </button>';
-//                    }
+                    }
 //                    if (Gate::allows('material-receiving-list')) {
 //                        $viewButton = '<button class="btn btn-sm btn-primary viewBtn" data-id="' . $row->material_receive_id . '" data-sr="' . $row->serialNumber . '"
 //                                           data-mrrcode="'.$row->mrrCode .'" data-ponumber="'.$row->poNumber .'" data-vendornumber="'.$row->vendorNumber .'"
@@ -102,9 +102,9 @@ class ProductRecipeController extends Controller
 //                                            </button>';
 //                    }
 
-//                    if (Gate::allows('material-receiving-edit')) {
+                    if (Gate::allows('product-recipe-edit')) {
                         $editButton = '<a href="' . route("product.Recipe.edit", $row->product_recipe_id) . '" class="btn btn-primary editBtn" data-id="'.$row->product_recipe_id.'" style="background: #0b2e13; border: none"> <i class="fa fa-pencil primary"></i></a>';
-//                    }
+                    }
                     return $viewButton .' '. $editButton . ' '.$deleteButton;
                 })
                 ->rawColumns(['action', 'id', 'getProduct'])->make(true);
@@ -168,5 +168,21 @@ class ProductRecipeController extends Controller
 
     }
 
+
+    public function delete ($id){
+
+//        dd($id);
+
+        $productRecipe = ProductRecipe::find($id);
+        if(!is_null($productRecipe)) {
+            ProductRecipeItem::where('product_recipe_id', $productRecipe->product_recipe_id)->delete();
+            $productRecipe->delete();
+        }
+        $message = array(
+            'message' => "Product Recipe Delete Successfully.",
+            'type'=> "success",
+        );
+        return redirect()->route('product.Recipe.Report') -> with($message);
+    }
 
 }

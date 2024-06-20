@@ -43,12 +43,12 @@ class ProductController extends Controller
                                                 <i class="fa fa-times"></i>
                                             </button>';
                     }
-                    if (Gate::allows('product-list')) {
-                        $viewButton = '<button class="btn btn-sm btn-primary viewBtn" data-id="' . $row->product_id . '" data-sr="' . $row->serialNumber . '"
-                                                data-toggle="tooltip" title="view">
-                                                <i class="fa fa-eye"></i>
-                                            </button>';
-                    }
+//                    if (Gate::allows('product-list')) {
+//                        $viewButton = '<button class="btn btn-sm btn-primary viewBtn" data-id="' . $row->product_id . '" data-sr="' . $row->serialNumber . '"
+//                                                data-toggle="tooltip" title="view">
+//                                                <i class="fa fa-eye"></i>
+//                                            </button>';
+//                    }
 
                     if (Gate::allows('product-edit')) {
                         $editButton = '<a href="' . route("product.edit", $row->product_id) . '" class="btn btn-primary editBtn" data-id="'.$row->product_id.'" style="background: #0b2e13; border: none"> <i class="fa fa-pencil primary"></i></a>';
