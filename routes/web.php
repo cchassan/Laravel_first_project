@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BatchTypeController;
+use App\Http\Controllers\BillOfMaterialBMRController;
 use App\Http\Controllers\SecondaryPackagingFormatController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -34,10 +36,17 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+
     Route::get('/locations', [LocationController::class, 'index'])->name('location');
     Route::post('/location/store', [LocationController::class, 'store'])->name('location.store');
     Route::get('/location/{id}/edit', [LocationController::class, 'edit'])->name('location.edit');
     Route::get('/location/{id}/delete', [LocationController::class, 'destroy'])->name('location.destroy');
+
+    Route::get('/batchTypes', [BatchTypeController::class, 'index'])->name('batchType');
+    Route::post('/batchTypes/store', [BatchTypeController::class, 'store'])->name('batchType.store');
+    Route::get('/batchTypes/{id}/edit', [BatchTypeController::class, 'edit'])->name('batchType.edit');
+    Route::get('/batchTypes/{id}/delete', [BatchTypeController::class, 'destroy'])->name('batchType.destroy');
+
     Route::resource('roles', RoleController::class);
     Route::get('/users', [PeopleController::class, 'index'])->name('users');
     Route::get('/users/create', [PeopleController::class, 'create'])->name('users.create');
@@ -91,5 +100,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/secondaryPackagingFormat/store', [SecondaryPackagingFormatController::class, 'store'])->name('secondaryPackagingFormat.store');
     Route::get('/secondaryPackagingFormat/{id}/edit', [SecondaryPackagingFormatController::class, 'edit'])->name('secondaryPackagingFormat.edit');
     Route::get('/secondaryPackagingFormat/{id}/delete', [SecondaryPackagingFormatController::class, 'destroy'])->name('secondaryPackagingFormat.destroy');
-
+    Route::get('/billofmaterial-BMR/create', [BillofmaterialBMRController::class, 'create'])->name('billOfMaterialBMR.create');
+    Route::post('/get-product-codes-BMR', [BillofmaterialBMRController::class, 'getProductCodesBMR'])->name('get.product.codes.bmr');
+    Route::post('/get-batch-type-BMR', [BillofmaterialBMRController::class, 'getBatchTypeBMR'])->name('get.batch.type.bmr');
+    Route::post('/get-item-code-BMR', [BillofmaterialBMRController::class, 'getItemCodesRecipeBMR'])->name('get.item.code.bmr');
+    Route::post('/billofmaterial-BMR/store', [BillofmaterialBMRController::class, 'store'])->name('billOfMaterialBMR.store');
 });

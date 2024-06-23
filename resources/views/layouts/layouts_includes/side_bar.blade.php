@@ -26,9 +26,17 @@
         <nav id="left-sidebar-nav" class="sidebar-nav">
             <ul id="main-menu" class="metismenu">
                 <li class="{{setActive(['home'])}}"><a href="{{route('home')}}"><i class="icon-home"></i><span>Dashboard</span></a></li>
+
+
                 @can('location-list')
                 <li class="{{setActive(['location'])}}"><a href="{{route('location')}}"><i class="icon-globe"></i><span>Locations</span></a></li>
                 @endcan
+
+                @can('batchType-list')
+                    <li class="{{setActive(['batchType'])}}"><a href="{{route('batchType')}}"><i class="icon-tag"></i><span>Batch Types</span></a></li>
+                @endcan
+
+
                 @if(Gate::check('material-record-Entry-create') || Gate::check('material-receiving-create') || Gate::check('goods-receiving-create') )
                 <li class="{{setActive(['material.Entry.Record', 'material.Receiving.Form', 'goods.Receiving.Notes'])}}">
                     <a href="#WarehouseForm" class="has-arrow"><i class="icon-equalizer"></i><span>Warehouse</span></a>
@@ -45,13 +53,18 @@
                         <li><a href="#">Bin Card</a></li>
                     </ul>
                 </li>
+
                 @endif
                 @can('routeAdministration-list')
                     <li class="{{setActive(['routeAdministration'])}}"><a href="{{route('routeAdministration')}}"><i class="fa fa-map-signs"></i><span>Route Administration</span></a></li>
                 @endcan
+
+
                 @can('secondaryPackagingFormat-list')
                     <li class="{{setActive(['secondaryPackagingFormat'])}}"><a href="{{route('secondaryPackagingFormat')}}"><i class="fa fa-sitemap"></i><span>Packaging Format</span></a></li>
                 @endcan
+
+
                 @if(Gate::check('product-create') || Gate::check('product-recipe-create') )
                 <li class="{{setActive(['product.create', 'productRecipe.create'])}}">
                         <a href="#ProductionForm" class="has-arrow"><i class="fa fa-cubes"></i><span>Production</span></a>
@@ -62,9 +75,12 @@
                             @can('product-recipe-create')
                                 <li class="{{setActive(['productRecipe.create'])}}"><a href="{{route('productRecipe.create')}}">Add Product Recipe</a></li>
                             @endcan
+                                <li class="{{setActive(['billOfMaterialBMR.create'])}}"><a href="{{route('billOfMaterialBMR.create')}}">Add Bill of Material(BMR)</a></li>
                         </ul>
                     </li>
                 @endif
+
+
 
                 <li class="{{setActive(['material.Entry.Record.Report','material.Receiving.Report','goods.Receiving.Report' ,'product.Report', 'product.Recipe.Report'])}}">
                     <a href="#Reports" class="has-arrow"><i class="icon-equalizer"></i><span>Reports</span></a>

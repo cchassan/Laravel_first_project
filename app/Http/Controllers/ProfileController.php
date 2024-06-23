@@ -12,8 +12,8 @@ class ProfileController extends Controller
         return view('profile/profile');
     }
 
-    public function updateProfile($id ,Request  $request){
-
+    public function updateProfile($id, Request $request)
+    {
         $user = User::find($id);
         $request->validate(
             [
@@ -23,21 +23,33 @@ class ProfileController extends Controller
                 'user_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]
         );
+
         if ($request->hasFile('user_image')) {
             $image = $request->file('user_image');
-            $name = time().'.'.$image->getClientOriginalExtension();
+            $extension = $image->getClientOriginalExtension();
+            $baseName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $name = $baseName . '_' . $id . '.' . $extension;
             $destinationPath = public_path('/uploads/users');
-            $image->move($destinationPath, $name);
-            $user->user_image = '/uploads/users/'.$name;
+
+            // Check if file already exists
+            if (!file_exists($destinationPath . '/' . $name)) {
+                $image->move($destinationPath, $name);
+                $user->user_image = '/uploads/users/' . $name;
+            } else {
+                $user->user_image = '/uploads/users/' . $name;
+            }
         }
+
         $user->name = $request->name;
         $user->phone = $request->phone;
         $user->address = $request->address;
         $user->update();
+
         $message = array(
             'message' => "Profile Updated Successfully.",
-            'type'=> "success",
+            'type' => "success",
         );
+
         return redirect()->route('profile')->with($message);
     }
 

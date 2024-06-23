@@ -8,12 +8,12 @@
         <div class="block-header">
             <div class="row clearfix">
                 <div class="col-md-6 col-sm-12">
-                    <h2>Add Product Recipe</h2>
+                    <h2>Bill of Material (BMR)</h2>
                 </div>
                 <div class="col-md-6 col-sm-12 text-right">
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="icon-home"></i></a></li>
-                        <li class="breadcrumb-item active">Add Product Recipe</li>
+                        <li class="breadcrumb-item active">Add Bill of Material (BMR)</li>
                     </ul>
                 </div>
             </div>
@@ -24,14 +24,14 @@
 
                     <div class="card planned_task">
                         <div class="header">
-                            <h1 class="text-center">Add Product Recipe</h1>
+                            <h1 class="text-center">Bill of Material (BMR)</h1>
                             <ul class="header-dropdown dropdown dropdown-animated scale-left">
                                 <li><a href="javascript:void(0);" class="full-screen"><i
                                             class="icon-size-fullscreen"></i></a></li>
                             </ul>
                         </div>
                         <div class="body">
-                            <form id="recipeForm" method="POST" action="{{route('productRecipe.store')}}" enctype="multipart/form-data">
+                            <form id="recipeForm" method="POST" action="{{route('billOfMaterialBMR.store')}}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6 mt-1">
@@ -46,18 +46,31 @@
                                                 </span>
                                         @enderror
                                     </div>
+
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
-                                            <label>Product Recipe Code <span class="text-danger">*</span></label>
-                                            <input type="text" name="productRecipeCode" class="form-control"
-                                                   value="{{old('productRecipeCode')}}" required>
+                                            <label>BOM-BMR Code <span class="text-danger">*</span></label>
+                                            <input type="text" name="bom_bmr_code" class="form-control"
+                                                   value="{{old('bom_bmr_code')}}" required>
                                         </div>
-                                        @error('productRecipeCode')
+                                        @error('bom_bmr_code')
                                         <span class="text-danger">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                         @enderror
                                     </div>
+
+                                    <div class="col-md-6 mt-1">
+                                        <label>BMR Code</label>
+                                        <input type="text" name="bmr_code" class="form-control"
+                                               value="{{old('bmr_code')}}" required>
+                                        @error('bmr_code')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
+                                    </div>
+
                                     <div class="col-md-6 mt-1">
                                         <label>Product Code</label>
                                         <select class="form-control productCode" name="productCode" id="productCode"  >
@@ -69,20 +82,6 @@
                                                 </span>
                                         @enderror
                                     </div>
-
-{{--                                    <div class="col-md-6 mt-1">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label>Product Code</label>--}}
-{{--                                            <select class="form-control" name="productCode" id="productCode"  >--}}
-{{--                                                <option value="">Select Product Code</option>--}}
-{{--                                            </select>--}}
-{{--                                        </div>--}}
-{{--                                        @error('productCode')--}}
-{{--                                        <span class="text-danger">--}}
-{{--                                                    <strong>{{ $message }}</strong>--}}
-{{--                                                </span>--}}
-{{--                                        @enderror--}}
-{{--                                    </div>--}}
 
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
@@ -97,13 +96,25 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-md-12 mt-1">
+                                    <div class="col-md-6 mt-1">
                                         <div class="form-group">
-                                            <label>Generic Name <span class="text-danger">*</span></label>
-                                            <input type="text" name="genericName" id="genericName" class="form-control"
-                                                   value="{{old('genericName')}}" readonly>
+                                            <label>Batch Number <span class="text-danger">*</span></label>
+                                            <input type="text" name="batchNumber" id="batchNumber" class="form-control"
+                                                   value="{{old('batchNumber')}}" >
                                         </div>
-                                        @error('genericName')
+                                        @error('batchNumber')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-6 mt-1">
+                                        <label>Batch Type</label>
+                                        <select class="form-control batchType" name="batchType" id="batchtype"  >
+                                            <option value="">Select Batch Type</option>
+                                        </select>
+                                        @error('batchType')
                                         <span class="text-danger">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -112,23 +123,11 @@
 
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
-                                            <label>Strength<span class="text-danger"> *</span></label>
-                                            <input type="text" name="strength" id="strength" class="form-control autocomplete"
-                                                   value="{{old('strength')}}" readonly>
+                                            <label>Batch Size <span class="text-danger">*</span></label>
+                                            <input type="text" name="batchSize" id="batchSize" class="form-control"
+                                                   value="{{old('batchSize')}}">
                                         </div>
-                                        @error('strength')
-                                        <span class="text-danger">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-6 mt-1">
-                                        <div class="form-group">
-                                            <label>Fill Volume/Vial <span class="text-danger">*</span></label>
-                                            <input type="text" name="fillVolume" id="fillVolume" class="form-control"
-                                                   value="{{old('fillVolume')}}" readonly>
-                                        </div>
-                                        @error('fillVolume')
+                                        @error('batchSize')
                                         <span class="text-danger">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -137,42 +136,34 @@
 
                                     <div class="col-md-6 mt-1">
                                         <div class="form-group">
-                                            <label>Batch Size (Liter)<span class="text-danger"> *</span></label>
-                                            <input type="number" name="batchSizeLiter" id="batchLiter" class="form-control autocomplete"
-                                                   value="{{old('batchSizeLiter')}}" readonly>
+                                            <label>Unit of Measurement <span class="text-danger">*</span></label>
+                                            <select class="form-control" name="measuringUnit">
+                                                <option>KG</option>
+                                                <option>Liters</option>
+                                                <option>Pieces</option>
+                                            </select>
                                         </div>
-                                        @error(' batchSizeLiter')
+                                        @error('measuringUnit')
                                         <span class="text-danger">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                         @enderror
                                     </div>
 
-                                    <div class="col-md-6 mt-1">
-                                        <div class="form-group">
-                                            <label>Batch Size (No. of Vials) <span class="text-danger">*</span></label>
-                                            <input type="number" name="batchSizeVials" id="batchVials" class="form-control"
-                                                   value="{{old('batchSizeVials')}}" readonly>
-                                        </div>
-                                        @error('batchSizeVials')
-                                        <span class="text-danger">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                        @enderror
-                                    </div>
+
                                 </div>
 
                                 <Hr>
 
-                            <div class="row text-right">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-primary" id = "addBtn" style="background: #0b2e13; border: none">
-                                            Add Recipe Items
-                                        </button>
+                                <div class="row text-right">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-primary" id = "addBtn" style="background: #0b2e13; border: none">
+                                                Add Request Material
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                                 <div class="container-fluid">
                                     <div class="row clearfix">
                                         <div class="col-lg-12">
@@ -188,8 +179,9 @@
                                                                 <th scope="col">No.</th>
                                                                 <th scope="col">Material Code</th>
                                                                 <th scope="col">Material Description</th>
-                                                                <th scope="col">Material Type</th>
-                                                                <th scope="col">Quantity</th>
+                                                                <th scope="col">Specification</th>
+                                                                <th scope="col">Standard Quantity</th>
+                                                                <th scope="col">Required Quantity</th>
                                                                 <th scope="col">UoM</th>
                                                                 <th scope="col">Action</th>
                                                             </tr>
@@ -201,6 +193,16 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 mt-1">
+                                        <div class="form-group">
+                                            <label>Remarks (if Any)</label>
+                                            <textarea class="form-control" name="remarks" id="remarks" rows="4"
+                                            >{{old('remarks')}}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -218,6 +220,46 @@
                                                 </span>
                                         @enderror
                                     </div>
+
+                                    <div class="col-md-6 mt-1">
+                                        <div class="form-group">
+                                            <label>Prepared on <span class="text-danger">*</span></label>
+                                            <input type="date" name="preparedOn" class="form-control"
+                                                   value="{{old('preparedOn')}}" required>
+                                        </div>
+                                        @error('preparedOn')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-6 mt-1">
+                                        <div class="form-group">
+                                            <label>Approved by <span class="text-danger">*</span></label>
+                                            <input type="text" name="approvedBy" class="form-control"
+                                                   value="{{old('approvedBy')}}" required>
+                                        </div>
+                                        @error('approvedBy')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-6 mt-1">
+                                        <div class="form-group">
+                                            <label>Approved Date <span class="text-danger">*</span></label>
+                                            <input type="date" name="approvedDate" class="form-control"
+                                                   value="{{old('approvedDate')}}" required>
+                                        </div>
+                                        @error('approvedDate')
+                                        <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                        @enderror
+                                    </div>
+
                                 </div>
 
                                 <div class="row text-right">
@@ -262,18 +304,24 @@
                 </td>
                 <td><input type="text" class="form-control materialDescription" name="materialDescription[]" id="materialDescription${itemCount}" required></td>
                 <td>
-                    <select class="form-control" name="materialType[]">
-                        <option>API</option>
-                        <option>Excipient</option>
-                        <option>Chemical</option>
+                    <select class="form-control" name="specification[]">
+                        <option>USP</option>
+                        <option>BP</option>
+                        <option>IP</option>
+                        <option>Ph.EUR</option>
+                        <option>In-House</option>
+                        <option>Others</option>
                     </select>
                 </td>
-                <td><input type="number" class="form-control" name="quantity[]" required></td>
+                <td><input type="number" class="form-control" name="standardQty[]" required></td>
+                <td><input type="number" class="form-control" name="requiredQty[]" required></td>
                 <td>
                     <select class="form-control" name="measuring[]">
                         <option>KG</option>
                         <option>Liters</option>
                         <option>Pieces</option>
+                        <option>mg</option>
+                        <option>ml</option>
                     </select>
                 </td>
                 <td>
@@ -288,7 +336,7 @@
                     placeholder: 'Select an item code',
                     minimumInputLength: 2,
                     ajax: {
-                        url: "{{ route('get.item.codes.recipe') }}",
+                        url: "{{ route('get.item.code.bmr') }}",
                         method: 'POST',
                         dataType: 'json',
                         delay: 250,
@@ -340,7 +388,7 @@
                 placeholder: 'Select a Product Code',
                 minimumInputLength: 2,
                 ajax: {
-                    url: "{{ route('get.product.codes') }}",
+                    url: "{{ route('get.product.codes.bmr') }}",
                     method: 'POST',
                     dataType: 'json',
                     delay: 250,
@@ -377,6 +425,34 @@
                 $('#fillVolume').val(fillVolume);
                 $('#batchLiter').val(batchLiter);
                 $('#batchVials').val(batchVials);
+            });
+
+
+
+            // batch type
+
+            $('.batchType').select2({
+                placeholder: 'Select a Batch Type',
+                minimumInputLength: 2,
+                ajax: {
+                    url: "{{ route('get.batch.type.bmr') }}",
+                    method: 'POST',
+                    dataType: 'json',
+                    delay: 250,
+                    headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+                    data: function(params) { return { query: params.term }; },
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    id: item.batchType_id,
+                                    text: item.batchType,
+                                };
+                            })
+                        };
+                    },
+                    cache: true
+                }
             });
 
             // Form submission validation
